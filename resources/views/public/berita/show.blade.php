@@ -20,7 +20,10 @@
                 <div class="card-body p-4 p-md-5">
                     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                         <div class="text-muted">
-                            <i class="far fa-calendar-alt me-2"></i>Diterbitkan pada {{ \Carbon\Carbon::parse($berita->tanggal_terbit)->translatedFormat('d F Y') }}
+                            <span><i class="far fa-calendar-alt me-2"></i>Diterbitkan pada {{ \Carbon\Carbon::parse($berita->tanggal_terbit)->translatedFormat('d F Y') }}</span>
+                            @if($berita->penulis)
+                            <span class="ms-3"><i class="fas fa-user-edit me-2"></i>Ditulis oleh: {{ $berita->penulis }}</span>
+                            @endif
                         </div>
                         <div class="share-buttons">
                             <span class="text-muted me-2 small">Bagikan:</span>

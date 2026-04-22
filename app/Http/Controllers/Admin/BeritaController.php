@@ -28,6 +28,7 @@ class BeritaController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'isi' => 'required',
             'tanggal_terbit' => 'required|date',
+            'penulis' => 'required|string|max:255',
         ]);
 
         $data = $request->except('gambar');
@@ -57,6 +58,7 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'isi' => 'required',
             'tanggal_terbit' => 'required|date',
+            'penulis' => 'required|string|max:255',
         ]);
 
         $data = $request->except('gambar');

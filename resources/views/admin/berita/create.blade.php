@@ -20,7 +20,7 @@
             </div>
             
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <label for="gambar" class="form-label fw-bold">Gambar/Cover <span class="text-danger">*</span></label>
                     <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar" accept="image/*" required>
                     <div class="form-text">Format yang didukung: JPG, PNG, GIF. Maksimal ukuran: 2MB.</div>
@@ -29,7 +29,15 @@
                     @enderror
                 </div>
                 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
+                    <label for="penulis" class="form-label fw-bold">Ditulis Oleh <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis" name="penulis" value="{{ old('penulis') }}" required placeholder="Nama penulis...">
+                    @error('penulis')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-md-4 mb-3">
                     <label for="tanggal_terbit" class="form-label fw-bold">Tanggal Terbit <span class="text-danger">*</span></label>
                     <input type="date" class="form-control @error('tanggal_terbit') is-invalid @enderror" id="tanggal_terbit" name="tanggal_terbit" value="{{ old('tanggal_terbit', date('Y-m-d')) }}" required>
                     @error('tanggal_terbit')

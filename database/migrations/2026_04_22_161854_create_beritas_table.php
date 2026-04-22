@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('gambar')->nullable();
             $table->text('isi');
+            $table->string('penulis')->nullable();
             $table->date('tanggal_terbit');
             $table->timestamps();
         });
