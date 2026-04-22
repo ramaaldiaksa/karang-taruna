@@ -40,4 +40,38 @@
         </div>
     </div>
 </div>
+
+<!-- Section Berita Terbaru -->
+@if($beritas->count() > 0)
+<div class="container my-5 pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Berita Terbaru</h2>
+        <a href="{{ route('public.berita') }}" class="btn btn-outline-primary rounded-pill px-4">Lihat Semua Berita</a>
+    </div>
+    
+    <div class="row g-4">
+        @foreach($beritas as $berita)
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                @if($berita->gambar)
+                    <img src="{{ asset('storage/' . $berita->gambar) }}" class="card-img-top" alt="{{ $berita->judul }}" style="height: 200px; object-fit: cover;">
+                @else
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-image fa-3x text-muted"></i>
+                    </div>
+                @endif
+                <div class="card-body p-4">
+                    <div class="text-muted small mb-2">
+                        <i class="far fa-calendar-alt me-1"></i> {{ \Carbon\Carbon::parse($berita->tanggal_terbit)->translatedFormat('d F Y') }}
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">{{ $berita->judul }}</h5>
+                    <p class="card-text text-muted">{{ Str::limit(strip_tags($berita->isi), 100) }}</p>
+                    <a href="{{ route('public.berita.show', $berita->slug) }}" class="btn btn-primary mt-auto rounded-pill px-4">Baca Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
 @endsection

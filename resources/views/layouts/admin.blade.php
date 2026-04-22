@@ -54,6 +54,11 @@
                         <i class="fas fa-money-bill-wave me-2"></i> Laporan Keuangan
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.berita.index') }}" class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                        <i class="fas fa-newspaper me-2"></i> Kelola Berita
+                    </a>
+                </li>
             </ul>
             <hr>
             <div class="px-3">

@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}">Karang Taruna</a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-4 px-md-5">
+        <a class="navbar-brand fw-bold" href="{{ route('home') }}">Karang Taruna Official Portal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,6 +11,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('about') ? 'active fw-semibold' : '' }}" href="{{ route('about') }}">Tentang Kami</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('public.berita.*') ? 'active fw-semibold' : '' }}" href="{{ route('public.berita') }}">Berita</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('public.inventaris') ? 'active fw-semibold' : '' }}" href="{{ route('public.inventaris') }}">Inventaris</a>
