@@ -12,9 +12,15 @@ class PengembalianController extends Controller
 {
     public function index()
     {
-        $pengembalians = Pengembalian::with(['peminjaman.masyarakat', 'admin'])->orderBy('tanggal_kembali', 'desc')->get();
         $peminjamans = Peminjaman::where('status', 'disetujui')->with('masyarakat')->get();
-        return view('admin.pengembalian.index', compact('pengembalians', 'peminjamans'));
+        $pengembalians_count = Pengembalian::count();
+        return view('admin.pengembalian.index', compact('peminjamans', 'pengembalians_count'));
+    }
+
+    public function riwayat()
+    {
+        $pengembalians = Pengembalian::with(['peminjaman.masyarakat', 'admin'])->orderBy('tanggal_kembali', 'desc')->get();
+        return view('admin.pengembalian.riwayat', compact('pengembalians'));
     }
 
     public function store(PengembalianRequest $request)

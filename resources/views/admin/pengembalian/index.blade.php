@@ -15,27 +15,9 @@
             </div>
             <form action="{{ route('admin.pengembalian.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="id_peminjaman" id="id_peminjaman">
                 <div class="modal-body p-4">
-
-                    {{-- Pilih Peminjaman --}}
-                    <div class="mb-3">
-                        <label for="id_peminjaman" class="form-label fw-semibold text-secondary small">Pilih Transaksi Peminjaman <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="fas fa-list text-primary"></i></span>
-                            <select id="id_peminjaman" name="id_peminjaman" class="form-select @error('id_peminjaman') is-invalid @enderror" required>
-                                <option value="" disabled selected>-- Pilih Transaksi --</option>
-                                @foreach($peminjamans as $p)
-                                    <option value="{{ $p->id_peminjaman }}">
-                                        {{ $p->masyarakat->nama ?? '-' }} - #{{ $p->id_peminjaman }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('id_peminjaman')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
+                    
                     {{-- Tanggal Kembali --}}
                     <div class="mb-3">
                         <label for="tanggal_kembali" class="form-label fw-semibold text-secondary small">Tanggal Kembali <span class="text-danger">*</span></label>
@@ -86,7 +68,7 @@
                 </div>
                 <div>
                     <p class="mb-1 text-white-50 fw-semibold">Total Pengembalian Selesai</p>
-                    <h3 class="fw-bold mb-0">{{ $pengembalians->count() }} Transaksi</h3>
+                    <h3 class="fw-bold mb-0">{{ $pengembalians_count }} Transaksi</h3>
                 </div>
             </div>
         </div>
@@ -113,20 +95,16 @@
         {{-- Header --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h5 class="fw-bold mb-0">Riwayat Pengembalian</h5>
-                <p class="text-muted small mb-0">Total: <strong>{{ $pengembalians->count() }}</strong> proses pengembalian yang tercatat</p>
+                <h5 class="fw-bold mb-0">Daftar Peminjaman Aktif</h5>
+                <p class="text-muted small mb-0">Total: <strong>{{ $peminjamans->count() }}</strong> peminjaman yang belum dikembalikan</p>
             </div>
-            <button type="button" class="btn btn-primary px-4 fw-semibold shadow-sm"
-                    data-bs-toggle="modal" data-bs-target="#modalTambahPengembalian">
-                <i class="fas fa-undo me-2"></i>Catat Pengembalian
-            </button>
         </div>
 
         {{-- Tabel --}}
-        @if($pengembalians->isEmpty())
+        @if($peminjamans->isEmpty())
             <div class="text-center py-5">
-                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                <p class="text-muted">Belum ada riwayat pengembalian barang. Klik tombol <strong>Catat Pengembalian</strong> untuk memulai.</p>
+                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                <p class="text-muted">Semua barang telah dikembalikan. Tidak ada peminjaman aktif saat ini.</p>
             </div>
         @else
             <div class="table-responsive">
@@ -135,25 +113,29 @@
                         <tr>
                             <th class="text-secondary small fw-semibold">No. Pinjaman</th>
                             <th class="text-secondary small fw-semibold">Peminjam</th>
-                            <th class="text-secondary small fw-semibold">Tanggal Kembali</th>
-                            <th class="text-secondary small fw-semibold">Keterangan / Status</th>
-                            <th class="text-secondary small fw-semibold">PIC Admin</th>
+                            <th class="text-secondary small fw-semibold">Tanggal Pinjam</th>
+                            <th class="text-secondary small fw-semibold">Rencana Kembali</th>
+                            <th class="text-secondary small fw-semibold">Status</th>
+                            <th class="text-secondary small fw-semibold text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pengembalians as $p)
+                        @foreach($peminjamans as $p)
                         <tr>
-                            <td><span class="badge bg-primary-subtle text-primary fw-semibold">#{{ $p->peminjaman->id_peminjaman ?? '-' }}</span></td>
-                            <td class="fw-semibold">{{ $p->peminjaman->masyarakat->nama ?? '-' }}</td>
-                            <td class="text-muted">{{ \Carbon\Carbon::parse($p->tanggal_kembali)->format('d M Y') }}</td>
+                            <td><span class="badge bg-primary-subtle text-primary fw-semibold">#{{ $p->id_peminjaman }}</span></td>
+                            <td class="fw-semibold">{{ $p->masyarakat->nama ?? '-' }}</td>
+                            <td class="text-muted">{{ \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d M Y') }}</td>
+                            <td class="text-muted">{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d M Y') }}</td>
                             <td>
-                                @if($p->keterangan)
-                                    <span class="text-muted">{{ $p->keterangan }}</span>
-                                @else
-                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1"><i class="fas fa-check me-1"></i>Selesai</span>
-                                @endif
+                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1"><i class="fas fa-hourglass-half me-1"></i>Belum Kembali</span>
                             </td>
-                            <td class="text-muted">{{ $p->admin->name ?? '-' }}</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-primary px-3 shadow-sm btn-catat-kembali"
+                                        data-bs-toggle="modal" data-bs-target="#modalTambahPengembalian"
+                                        data-id="{{ $p->id_peminjaman }}">
+                                    <i class="fas fa-undo me-1"></i>Catat Kembali
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -164,13 +146,32 @@
 </div>
 
 {{-- Auto-buka modal jika ada error validasi --}}
-@if($errors->any())
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        @if($errors->any())
         var modal = new bootstrap.Modal(document.getElementById('modalTambahPengembalian'));
         modal.show();
+        @endif
+
+        const btnCatat = document.querySelectorAll('.btn-catat-kembali');
+        const selectPeminjaman = document.getElementById('id_peminjaman');
+        const btnCatatUtama = document.getElementById('btn-catat-utama');
+
+        btnCatat.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                if (id) {
+                    selectPeminjaman.value = id;
+                }
+            });
+        });
+
+        if(btnCatatUtama) {
+            btnCatatUtama.addEventListener('click', function() {
+                selectPeminjaman.value = '';
+            });
+        }
     });
 </script>
-@endif
 
 @endsection

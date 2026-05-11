@@ -40,9 +40,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.pengembalian.index') }}" class="nav-link {{ request()->routeIs('admin.pengembalian.*') ? 'active' : '' }}">
+                    <a href="#pengembalianSubmenu" data-bs-toggle="collapse" class="nav-link {{ request()->routeIs('admin.pengembalian.*') ? 'active' : '' }} dropdown-toggle" aria-expanded="{{ request()->routeIs('admin.pengembalian.*') ? 'true' : 'false' }}">
                         <i class="fas fa-undo me-2"></i> Pengembalian
                     </a>
+                    <ul class="collapse list-unstyled {{ request()->routeIs('admin.pengembalian.*') ? 'show' : '' }} ps-3 mt-1" id="pengembalianSubmenu">
+                        <li>
+                            <a href="{{ route('admin.pengembalian.index') }}" class="nav-link {{ request()->routeIs('admin.pengembalian.index') ? 'text-white' : 'text-secondary' }} py-1 ms-2" style="font-size: 0.9rem;">
+                                <i class="fas fa-check-circle me-2" style="font-size: 0.8rem;"></i> Verifikasi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pengembalian.riwayat') }}" class="nav-link {{ request()->routeIs('admin.pengembalian.riwayat') ? 'text-white' : 'text-secondary' }} py-1 ms-2" style="font-size: 0.9rem;">
+                                <i class="fas fa-history me-2" style="font-size: 0.8rem;"></i> Riwayat
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('admin.surat.index') }}" class="nav-link {{ request()->routeIs('admin.surat.*') ? 'active' : '' }}">

@@ -70,11 +70,11 @@
                             <div class="row mb-4">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="form-label text-dark">Tanggal Pinjam</label>
-                                    <input type="date" name="tanggal_pinjam" class="form-control text-dark" value="{{ old('tanggal_pinjam') }}" required>
+                                    <input type="date" name="tanggal_pinjam" class="form-control text-dark" value="{{ old('tanggal_pinjam', date('Y-m-d')) }}" min="{{ date('Y-m-d') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Rencana Kembali</label>
-                                    <input type="date" name="rencana_kembali" class="form-control text-dark" value="{{ old('rencana_kembali') }}" required>
+                                    <input type="date" name="rencana_kembali" class="form-control text-dark" value="{{ old('rencana_kembali', date('Y-m-d')) }}" min="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
 

@@ -109,40 +109,42 @@
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
+                <table class="table table-borderless table-hover align-middle mb-0">
+                    <thead class="border-bottom">
                         <tr>
-                            <th class="text-secondary small fw-semibold">Kode Barang</th>
-                            <th class="text-secondary small fw-semibold">Nama Barang</th>
-                            <th class="text-secondary small fw-semibold">Tanggal Masuk</th>
-                            <th class="text-secondary small fw-semibold text-center">Jumlah Total</th>
-                            <th class="text-secondary small fw-semibold text-center">Tersedia</th>
-                            <th class="text-secondary small fw-semibold text-center">Aksi</th>
+                            <th class="text-secondary small fw-semibold text-uppercase py-3 ps-3">Kode Barang</th>
+                            <th class="text-secondary small fw-semibold text-uppercase py-3">Nama Barang</th>
+                            <th class="text-secondary small fw-semibold text-uppercase py-3">Tanggal Masuk</th>
+                            <th class="text-secondary small fw-semibold text-uppercase text-center py-3">Total</th>
+                            <th class="text-secondary small fw-semibold text-uppercase text-center py-3">Tersedia</th>
+                            <th class="text-secondary small fw-semibold text-uppercase text-end py-3 pe-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($inventaris as $item)
-                        <tr>
-                            <td>
-                                <span class="badge bg-primary-subtle text-primary fw-semibold">{{ $item->kode_barang }}</span>
+                        <tr class="border-bottom">
+                            <td class="ps-3 py-3">
+                                <span class="badge bg-primary-subtle text-primary fw-semibold px-2 py-1 rounded-3">{{ $item->kode_barang }}</span>
                             </td>
-                            <td class="fw-semibold">{{ $item->nama_barang }}</td>
-                            <td class="text-muted">{{ $item->tanggal_masuk->format('d M Y') }}</td>
-                            <td class="text-center">{{ $item->jumlah_total }}</td>
-                            <td class="text-center">
+                            <td class="fw-bold text-dark py-3">{{ $item->nama_barang }}</td>
+                            <td class="text-muted py-3">{{ \Carbon\Carbon::parse($item->tanggal_masuk)->format('d M Y') }}</td>
+                            <td class="text-center py-3">
+                                <span class="fw-semibold text-dark">{{ $item->jumlah_total }}</span>
+                            </td>
+                            <td class="text-center py-3">
                                 @if($item->jumlah_tersedia > 0)
-                                    <span class="badge bg-success-subtle text-success">{{ $item->jumlah_tersedia }}</span>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">{{ $item->jumlah_tersedia }} Unit</span>
                                 @else
-                                    <span class="badge bg-danger-subtle text-danger">Habis</span>
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-3 py-1">Habis</span>
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-end py-3 pe-3">
                                 <form action="{{ route('admin.inventaris.destroy', $item->id_inventaris) }}" method="POST"
                                       onsubmit="return confirm('Hapus inventaris ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn btn-sm btn-light text-danger shadow-sm border border-danger-subtle rounded-3">
+                                        <i class="fas fa-trash-alt me-1"></i> Hapus
                                     </button>
                                 </form>
                             </td>
