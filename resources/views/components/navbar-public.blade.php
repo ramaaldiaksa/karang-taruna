@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
     <div class="container-fluid px-4 px-md-5">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}">Karang Taruna Official Portal</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <a class="navbar-brand fw-bold text-primary" href="{{ route('home') }}">Karang Taruna</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('home') ? 'active fw-semibold' : '' }}" href="{{ route('home') }}">Beranda</a>
                 </li>
@@ -24,10 +24,10 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('public.keuangan') ? 'active fw-semibold' : '' }}" href="{{ route('public.keuangan') }}">Keuangan</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-light text-primary ms-2 px-3" href="{{ route('login') }}">Login Admin</a>
-                </li>
             </ul>
+            <div class="d-flex align-items-center mt-3 mt-lg-0">
+                <a class="btn btn-primary px-4 py-2 fw-semibold" style="border-radius: 6px;" href="{{ route('login') }}">Masuk</a>
+            </div>
         </div>
     </div>
 </nav>

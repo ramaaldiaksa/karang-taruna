@@ -23,6 +23,7 @@ Route::get('/tentang-kami', [HomeController::class, 'about'])->name('about');
 Route::get('/inventaris', [PublicInventarisController::class, 'index'])->name('public.inventaris');
 Route::get('/peminjaman/buat', [PublicPeminjamanController::class, 'create'])->name('public.peminjaman.create');
 Route::post('/peminjaman/buat', [PublicPeminjamanController::class, 'store'])->name('public.peminjaman.store');
+Route::get('/peminjaman/{id}/sukses', [PublicPeminjamanController::class, 'success'])->name('public.peminjaman.success');
 Route::get('/keuangan', [PublicKeuanganController::class, 'index'])->name('public.keuangan');
 Route::get('/berita', [PublicBeritaController::class, 'index'])->name('public.berita');
 Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('public.berita.show');

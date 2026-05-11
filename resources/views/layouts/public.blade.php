@@ -22,14 +22,22 @@
         .btn-outline-primary:hover { background-color: var(--bs-primary); color: white; }
 
         /* Navbar Styling */
-        .navbar { background-color: var(--bs-primary) !important; padding: 12px 0; }
-        .navbar .nav-link { color: rgba(255, 255, 255, 0.85); padding: 8px 4px !important; margin: 0 12px; font-weight: 500; border-bottom: 2px solid transparent; }
-        .navbar .nav-link:hover { color: #fff; background-color: transparent; border-bottom-color: #fff; }
-        .navbar .nav-link.active { color: #fff; background-color: transparent; border-bottom-color: #fff; }
-        .navbar-brand { letter-spacing: 0.5px; font-size: 1.15rem; }
+        .navbar { padding: 12px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .navbar .nav-link { color: #6c757d; padding: 8px 4px !important; margin: 0 12px; font-weight: 500; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+        .navbar .nav-link:hover { color: var(--bs-primary); border-bottom-color: var(--bs-primary); }
+        .navbar .nav-link.active { color: var(--bs-primary); border-bottom-color: var(--bs-primary); }
+        .navbar-brand { letter-spacing: 0.5px; font-size: 1.25rem; }
 
-        .hero-section { background: linear-gradient(135deg, #1a529e, #2b74d9); color: white; padding: 4rem 0; border-radius: 0 0 20px 20px; margin-bottom: 2rem; }
-        .card { border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        /* Custom Utilities */
+        .bg-light-blue { background-color: #e8f0fe; }
+        .bg-light-gray { background-color: #f4f6f8; }
+        .icon-box { display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 16px; }
+        .icon-box-primary { background-color: #e6f0ff; color: var(--bs-primary); }
+
+        .hero-section { background: linear-gradient(135deg, #00428c, #1a529e); color: white; padding: 5rem 0; margin-bottom: 2rem; }
+        .hero-section-home { background: linear-gradient(rgba(0, 32, 96, 0.7), rgba(0, 32, 96, 0.7)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920') no-repeat center center; background-size: cover; color: white; padding: 8rem 0; margin-bottom: 0; }
+        
+        .card { border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); }
         .footer { background-color: #212529; color: white; padding: 2rem 0; margin-top: 3rem; }
     </style>
 </head>

@@ -62,6 +62,12 @@ class PeminjamanController extends Controller
 
         // Note: Stok inventaris akan dikurangi setelah disetujui Admin, bukan saat pengajuan.
 
-        return redirect()->route('public.inventaris')->with('success', 'Pengajuan peminjaman berhasil dikirim. Silakan tunggu verifikasi dari Admin.');
+        return redirect()->route('public.peminjaman.success', $peminjaman->id_peminjaman);
+    }
+
+    public function success($id)
+    {
+        $peminjaman = Peminjaman::with(['masyarakat', 'detail.inventaris'])->findOrFail($id);
+        return view('public.peminjaman.success', compact('peminjaman'));
     }
 }

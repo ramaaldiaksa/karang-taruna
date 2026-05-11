@@ -1,73 +1,132 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="container my-5 py-4">
-    <!-- Section: Tentang Karang Taruna -->
-    <div class="row align-items-center mb-5 pb-5 border-bottom border-light">
-        <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0">
-            <div class="mb-4">
-                <h1 class="fw-bold mb-0 text-primary" style="font-size: 2.8rem;">Tentang Karang Taruna</h1>
-                <div class="mt-2 mb-4" style="width: 80px; height: 5px; background-color: var(--bs-primary); border-radius: 5px;"></div>
-            </div>
-            <p class="text-dark fs-5" style="line-height: 1.7;">
-                Karang Taruna adalah wadah pembinaan dan pengembangan generasi muda yang tumbuh atas dasar kesadaran dan rasa tanggung jawab sosial dari, oleh, dan untuk masyarakat.
+<!-- Hero Section -->
+<div class="hero-section text-start" style="padding-bottom: 6rem;">
+    <div class="container">
+        <div class="mb-4 text-white-50 small">
+            <a href="{{ route('home') }}" class="text-white text-decoration-none">Beranda</a> <span class="mx-2">/</span> <span class="text-white fw-medium border-bottom pb-1">Tentang Kami</span>
+        </div>
+        <h1 class="fw-semibold mb-4" style="font-size: 1.1rem;">Tentang Karang Taruna</h1>
+        <p class="lead mb-0" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.9);">
+            Mengenal lebih dekat wadah pengembangan generasi muda yang berdedikasi untuk kemajuan sosial dan kemandirian masyarakat.
+        </p>
+    </div>
+</div>
+
+<!-- Identitas Kami Section -->
+<div class="container" style="margin-top: 4rem; margin-bottom: 6rem;">
+    <div class="row g-5 align-items-center">
+        <!-- Text Content -->
+        <div class="col-lg-5 pe-lg-5">
+            <h6 class="text-primary fw-semibold tracking-wider mb-4" style="letter-spacing: 2px; font-size: 0.85rem;">IDENTITAS KAMI</h6>
+            <h3 class="text-primary fw-semibold mb-4" style="font-size: 1.1rem;">Wadah Pembinaan & Tanggung Jawab Sosial</h3>
+            <p class="text-muted mb-4" style="font-size: 0.95rem; line-height: 1.7;">
+                Karang Taruna merupakan organisasi sosial kemasyarakatan sebagai wadah dan sarana pengembangan setiap anggota masyarakat yang tumbuh dan berkembang atas dasar kesadaran dan tanggung jawab sosial dari, oleh, dan untuk masyarakat terutama generasi muda.
             </p>
-            <p class="text-muted fs-6 mt-4" style="line-height: 1.8;">
-                Melalui website sistem informasi ini, kami bertujuan untuk memberikan transparansi terkait kegiatan, inventaris, dan keuangan organisasi kepada seluruh lapisan masyarakat.
+            <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.7;">
+                Sebagai lembaga kepemudaan di tingkat desa, kami berkomitmen untuk menjadi inkubator kreativitas dan kemandirian bagi pemuda, serta menjadi garda terdepan dalam pelayanan kesejahteraan sosial bagi masyarakat luas.
             </p>
         </div>
-        <div class="col-lg-6">
-            <div class="position-relative">
-                <img src="https://images.unsplash.com/photo-1593113565694-c6a66b9f2eb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                     alt="Kegiatan Karang Taruna" 
-                     class="img-fluid rounded-4 shadow-lg w-100" 
-                     style="object-fit: cover; height: 400px;">
-                <div class="position-absolute top-100 start-0 translate-middle ms-5 rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin-top: -40px;">
-                    <i class="fas fa-users text-primary fa-2x"></i>
+        
+        <!-- Stats Grid -->
+        <div class="col-lg-7">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 p-4 border-0 text-center bg-light-gray" style="border-radius: 8px;">
+                        <div class="card-body">
+                            <i class="fas fa-users text-primary fa-2x mb-3"></i>
+                            <h4 class="text-primary fw-semibold mb-1" style="font-size: 1.1rem;">500+</h4>
+                            <p class="text-muted small mb-0">Anggota Aktif</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 p-4 border-0 text-center bg-light-gray" style="border-radius: 8px;">
+                        <div class="card-body">
+                            <i class="fas fa-hand-holding-heart text-primary fa-2x mb-3"></i>
+                            <h4 class="text-primary fw-semibold mb-1" style="font-size: 1.1rem;">24+</h4>
+                            <p class="text-muted small mb-0">Program Sosial</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 p-4 border-0 text-center bg-light-gray" style="border-radius: 8px;">
+                        <div class="card-body">
+                            <i class="fas fa-handshake text-primary fa-2x mb-3"></i>
+                            <h4 class="text-primary fw-semibold mb-1" style="font-size: 1.1rem;">15+</h4>
+                            <p class="text-muted small mb-0">Mitra Strategis</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 p-4 border-0 text-center bg-light-gray" style="border-radius: 8px;">
+                        <div class="card-body">
+                            <i class="fas fa-trophy text-primary fa-2x mb-3"></i>
+                            <h4 class="text-primary fw-semibold mb-1" style="font-size: 1.1rem;">10+</h4>
+                            <p class="text-muted small mb-0">Penghargaan Desa</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Section: Visi & Misi -->
-    <div class="mb-5">
-        <h2 class="fw-bold mb-5" style="font-size: 2.5rem;">Visi & Misi</h2>
-        <div class="row g-5">
+<!-- Visi & Misi Section -->
+<div class="bg-light-gray py-5">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h3 class="text-primary fw-semibold d-inline-block pb-2" style="font-size: 1.1rem; border-bottom: 3px solid var(--bs-primary);">Visi & Misi</h3>
+        </div>
+        
+        <div class="row g-4">
             <!-- Visi -->
             <div class="col-md-5">
-                <div class="d-flex align-items-center mb-4">
-                    <i class="fas fa-eye text-primary me-3" style="font-size: 2rem;"></i>
-                    <h3 class="fw-bold mb-0">Visi</h3>
+                <div class="card h-100 border-0 p-4 shadow-sm" style="border-radius: 8px;">
+                    <div class="card-body">
+                        <div class="icon-box bg-light-blue text-primary mb-4" style="width: 50px; height: 50px; border-radius: 8px;">
+                            <i class="fas fa-eye fa-lg"></i>
+                        </div>
+                        <h5 class="text-primary fw-semibold mb-4" style="font-size: 1rem;">Visi Kami</h5>
+                        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.7;">
+                            "Menjadi organisasi kepemudaan yang unggul dalam pembinaan generasi muda yang mandiri, kreatif, dan berwawasan sosial."
+                        </p>
+                    </div>
                 </div>
-                <p class="text-dark fs-5" style="line-height: 1.7;">
-                    Menjadi organisasi kepemudaan yang unggul dalam pembinaan generasi muda yang mandiri, kreatif, dan berwawasan sosial.
-                </p>
             </div>
             
             <!-- Misi -->
             <div class="col-md-7">
-                <div class="d-flex align-items-center mb-4">
-                    <i class="fas fa-bullseye text-primary me-3" style="font-size: 2rem;"></i>
-                    <h3 class="fw-bold mb-0">Misi</h3>
+                <div class="card h-100 border-0 p-4 shadow-sm" style="border-radius: 8px;">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="icon-box bg-light-blue text-primary me-3" style="width: 50px; height: 50px; border-radius: 8px;">
+                                <i class="fas fa-flag fa-lg"></i>
+                            </div>
+                            <h5 class="text-primary fw-semibold mb-0" style="font-size: 1rem;">Misi Kami</h5>
+                        </div>
+                        
+                        <div class="row g-4 mt-1">
+                            <div class="col-md-6 d-flex align-items-start">
+                                <i class="fas fa-chart-line text-primary mt-1 me-3"></i>
+                                <p class="text-muted small mb-0" style="line-height: 1.6;">Meningkatkan partisipasi aktif pemuda dalam pembangunan desa.</p>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-start">
+                                <i class="far fa-lightbulb text-primary mt-1 me-3"></i>
+                                <p class="text-muted small mb-0" style="line-height: 1.6;">Mengembangkan potensi dan kreativitas generasi muda.</p>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-start">
+                                <i class="fas fa-landmark text-primary mt-1 me-3"></i>
+                                <p class="text-muted small mb-0" style="line-height: 1.6;">Mewujudkan transparansi dan akuntabilitas dalam pengelolaan organisasi.</p>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-start">
+                                <i class="fas fa-network-wired text-primary mt-1 me-3"></i>
+                                <p class="text-muted small mb-0" style="line-height: 1.6;">Membangun jejaring sosial yang kuat antar pemuda.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <ul class="list-unstyled">
-                    <li class="mb-3 d-flex align-items-start">
-                        <div class="text-primary mt-1 me-3"><i class="fas fa-check-circle"></i></div>
-                        <span class="fs-6" style="line-height: 1.6;">Meningkatkan partisipasi aktif pemuda dalam pembangunan desa.</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <div class="text-primary mt-1 me-3"><i class="fas fa-check-circle"></i></div>
-                        <span class="fs-6" style="line-height: 1.6;">Mengembangkan potensi dan kreativitas generasi muda.</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <div class="text-primary mt-1 me-3"><i class="fas fa-check-circle"></i></div>
-                        <span class="fs-6" style="line-height: 1.6;">Mewujudkan transparansi dan akuntabilitas dalam pengelolaan organisasi.</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <div class="text-primary mt-1 me-3"><i class="fas fa-check-circle"></i></div>
-                        <span class="fs-6" style="line-height: 1.6;">Membangun jejaring sosial yang kuat antar pemuda.</span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
