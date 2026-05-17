@@ -9,11 +9,21 @@ use App\Http\Requests\SuratRequest;
 
 class SuratController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $surats = Surat::with('admin')->orderBy('tanggal_upload', 'desc')->get();
-        $totalSuratMasuk = $surats->where('jenis_surat', 'surat masuk')->count();
-        $totalSuratKeluar = $surats->where('jenis_surat', 'surat keluar')->count();
+        $query = Surat::with('admin')->orderBy('tanggal_upload', 'desc');
+
+        if ($request->filled('q')) {
+            $query->where('judul', 'like', "%{$request->q}%");
+        }
+
+        if ($request->filled('jenis_surat')) {
+            $query->where('jenis_surat', $request->jenis_surat);
+        }
+
+        $surats = $query->paginate(10)->withQueryString();
+        $totalSuratMasuk = Surat::where('jenis_surat', 'surat masuk')->count();
+        $totalSuratKeluar = Surat::where('jenis_surat', 'surat keluar')->count();
 
         return view('admin.surat.index', compact('surats', 'totalSuratMasuk', 'totalSuratKeluar'));
     }

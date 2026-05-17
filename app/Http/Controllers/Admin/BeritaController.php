@@ -12,7 +12,17 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        $beritas = Berita::latest()->get();
+        $beritas = Berita::query()
+            ->when(request('q'), function ($query, $search) {
+                $query->where(function ($builder) use ($search) {
+                    $builder->where('judul', 'like', "%{$search}%")
+                        ->orWhere('penulis', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.berita.index', compact('beritas'));
     }
 

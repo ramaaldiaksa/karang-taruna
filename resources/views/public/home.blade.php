@@ -3,7 +3,7 @@
 @section('content')
 <div class="hero-section-home text-center d-flex align-items-center">
     <div class="container pb-5">
-        <h1 class="display-4 fw-bold mb-4" style="line-height: 1.2;">Selamat Datang di Sistem<br>Informasi Karang Taruna</h1>
+        <h1 class="display-4 fw-bold mb-4" style="line-height: 1.2;">Selamat Datang di Sistem<br>Informasi Karang Taruna <br> Rimba Ketapang</h1>
         <p class="lead mb-5" style="font-size: 1.15rem; color: rgba(255,255,255,0.9);">Membangun generasi muda yang tangguh, produktif, dan bermanfaat bagi<br>masyarakat.</p>
         <a href="{{ route('public.peminjaman.create') }}" class="btn btn-light btn-lg text-primary fw-semibold px-4 rounded-3 shadow-sm" style="font-size: 1rem;">Pinjam Inventaris Sekarang</a>
     </div>

@@ -12,14 +12,31 @@ class PengembalianController extends Controller
 {
     public function index()
     {
-        $peminjamans = Peminjaman::where('status', 'disetujui')->with('masyarakat')->get();
+        $peminjamans = Peminjaman::where('status', 'disetujui')
+            ->with('masyarakat')
+            ->when(request('q'), function ($query, $search) {
+                $query->whereHas('masyarakat', function ($builder) use ($search) {
+                    $builder->where('nama', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
         $pengembalians_count = Pengembalian::count();
         return view('admin.pengembalian.index', compact('peminjamans', 'pengembalians_count'));
     }
 
     public function riwayat()
     {
-        $pengembalians = Pengembalian::with(['peminjaman.masyarakat', 'admin'])->orderBy('tanggal_kembali', 'desc')->get();
+        $pengembalians = Pengembalian::with(['peminjaman.masyarakat', 'admin'])
+            ->when(request('q'), function ($query, $search) {
+                $query->whereHas('peminjaman.masyarakat', function ($builder) use ($search) {
+                    $builder->where('nama', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('tanggal_kembali', 'desc')
+            ->paginate(10)
+            ->withQueryString();
         return view('admin.pengembalian.riwayat', compact('pengembalians'));
     }
 

@@ -9,11 +9,21 @@ use App\Http\Requests\KeuanganRequest;
 
 class KeuanganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $keuangans = Keuangan::with('admin')->orderBy('tanggal', 'desc')->get();
-        $totalPemasukan = $keuangans->where('jenis_transaksi', 'pemasukan')->sum('jumlah');
-        $totalPengeluaran = $keuangans->where('jenis_transaksi', 'pengeluaran')->sum('jumlah');
+        $query = Keuangan::with('admin')->orderBy('tanggal', 'desc');
+
+        if ($request->filled('q')) {
+            $query->where('keterangan', 'like', "%{$request->q}%");
+        }
+
+        if ($request->filled('jenis_transaksi')) {
+            $query->where('jenis_transaksi', $request->jenis_transaksi);
+        }
+
+        $keuangans = $query->paginate(10)->withQueryString();
+        $totalPemasukan = Keuangan::where('jenis_transaksi', 'pemasukan')->sum('jumlah');
+        $totalPengeluaran = Keuangan::where('jenis_transaksi', 'pengeluaran')->sum('jumlah');
         $saldoKas = $totalPemasukan - $totalPengeluaran;
         
         return view('admin.keuangan.index', compact('keuangans', 'totalPemasukan', 'totalPengeluaran', 'saldoKas'));

@@ -19,11 +19,48 @@ class InventarisController extends Controller
         return 'INV-' . str_pad($number, 4, '0', STR_PAD_LEFT);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $inventaris = Inventaris::orderBy('created_at', 'desc')->get();
+        $kategoriOptions = ['Elektronik', 'Furnitur', 'Perlengkapan'];
+        $query = Inventaris::query()->orderBy('created_at', 'desc');
+
+        if ($request->filled('q')) {
+            $search = $request->q;
+            $query->where(function ($builder) use ($search) {
+                $builder->where('kode_barang', 'like', "%{$search}%")
+                    ->orWhere('nama_barang', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('kategori') && in_array($request->kategori, $kategoriOptions, true)) {
+            $elektronikKeywords = ['proyektor', 'laptop', 'speaker', 'sound', 'mikrofon', 'kamera', 'kabel'];
+            $furniturKeywords = ['kursi', 'meja', 'lemari', 'rak'];
+
+            $keywords = match ($request->kategori) {
+                'Elektronik' => $elektronikKeywords,
+                'Furnitur' => $furniturKeywords,
+                default => [],
+            };
+
+            if ($request->kategori === 'Perlengkapan') {
+                $query->where(function ($builder) use ($elektronikKeywords, $furniturKeywords) {
+                    foreach (array_merge($elektronikKeywords, $furniturKeywords) as $keyword) {
+                        $builder->where('nama_barang', 'not like', "%{$keyword}%");
+                    }
+                });
+            } else {
+                $query->where(function ($builder) use ($keywords) {
+                    foreach ($keywords as $keyword) {
+                        $builder->orWhere('nama_barang', 'like', "%{$keyword}%");
+                    }
+                });
+            }
+        }
+
+        $inventaris = $query->paginate(10)->withQueryString();
         $kodeBaru   = $this->generateKode();
-        return view('admin.inventaris.index', compact('inventaris', 'kodeBaru'));
+
+        return view('admin.inventaris.index', compact('inventaris', 'kodeBaru', 'kategoriOptions'));
     }
 
     public function store(InventarisRequest $request)
@@ -57,4 +94,3 @@ class InventarisController extends Controller
             ->with('success', 'Data inventaris berhasil dihapus.');
     }
 }
-

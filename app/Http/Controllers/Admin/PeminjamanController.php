@@ -11,7 +11,18 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjamans = Peminjaman::with(['masyarakat', 'detail.inventaris'])->orderBy('created_at', 'desc')->get();
+        $peminjamans = Peminjaman::with(['masyarakat', 'detail.inventaris'])
+            ->when(request('q'), function ($query, $search) {
+                $query->whereHas('masyarakat', function ($builder) use ($search) {
+                    $builder->where('nama', 'like', "%{$search}%")
+                        ->orWhere('no_telepon', 'like', "%{$search}%");
+                });
+            })
+            ->when(request('status'), fn ($query, $status) => $query->where('status', $status))
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
