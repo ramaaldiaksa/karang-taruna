@@ -58,16 +58,31 @@ class InventarisController extends Controller
         }
 
         $inventaris = $query->paginate(10)->withQueryString();
-        $kodeBaru   = $this->generateKode();
+        $kodeBaru = $this->generateKode();
+        $totalBarang = (int) Inventaris::sum('jumlah_total');
+        $stokMenipis = Inventaris::where('jumlah_tersedia', '<=', 1)->count();
+        $stokMenipisItem = Inventaris::where('jumlah_tersedia', '<=', 1)
+            ->orderBy('jumlah_tersedia', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        $aktivitasTerkini = Inventaris::orderBy('created_at', 'desc')->limit(2)->get();
 
-        return view('admin.inventaris.index', compact('inventaris', 'kodeBaru', 'kategoriOptions'));
+        return view('admin.inventaris.index', compact(
+            'inventaris',
+            'kodeBaru',
+            'kategoriOptions',
+            'totalBarang',
+            'stokMenipis',
+            'stokMenipisItem',
+            'aktivitasTerkini'
+        ));
     }
 
     public function store(InventarisRequest $request)
     {
         $data = $request->validated();
-        $data['kode_barang']      = $this->generateKode();
-        $data['jumlah_tersedia']  = $data['jumlah_total'];
+        $data['kode_barang'] = $this->generateKode();
+        $data['jumlah_tersedia'] = $data['jumlah_total'];
 
         Inventaris::create($data);
 
