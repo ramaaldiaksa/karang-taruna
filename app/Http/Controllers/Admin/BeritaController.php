@@ -26,11 +26,6 @@ class BeritaController extends Controller
         return view('admin.berita.index', compact('beritas'));
     }
 
-    public function create()
-    {
-        return view('admin.berita.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -53,14 +48,6 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
     }
 
-    public function edit(Berita $beritum)
-    {
-        // Parameter binding expects $beritum because resource is singularize by default (if route is berita)
-        // Let's explicitly rename variable to $berita in the route or just use the parameter name Laravel expects.
-        // Or we can just use the standard parameter name $berita by renaming it in web.php, but let's stick to conventional `$berita`
-        return view('admin.berita.edit', ['berita' => $beritum]);
-    }
-
     public function update(Request $request, Berita $beritum)
     {
         $request->validate([
@@ -72,7 +59,7 @@ class BeritaController extends Controller
         ]);
 
         $data = $request->except('gambar');
-        
+
         if ($request->judul !== $beritum->judul) {
             $data['slug'] = Str::slug($request->judul) . '-' . time();
         }
@@ -94,7 +81,7 @@ class BeritaController extends Controller
         if ($beritum->gambar && Storage::disk('public')->exists($beritum->gambar)) {
             Storage::disk('public')->delete($beritum->gambar);
         }
-        
+
         $beritum->delete();
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus');

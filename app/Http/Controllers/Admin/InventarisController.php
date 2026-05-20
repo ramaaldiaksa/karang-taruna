@@ -21,7 +21,7 @@ class InventarisController extends Controller
 
     public function index(Request $request)
     {
-        $kategoriOptions = ['Elektronik', 'Furnitur', 'Perlengkapan'];
+        $statusOptions = ['lengkap', 'tersedia', 'habis'];
         $query = Inventaris::query()->orderBy('created_at', 'desc');
 
         if ($request->filled('q')) {
@@ -32,29 +32,17 @@ class InventarisController extends Controller
             });
         }
 
-        if ($request->filled('kategori') && in_array($request->kategori, $kategoriOptions, true)) {
-            $elektronikKeywords = ['proyektor', 'laptop', 'speaker', 'sound', 'mikrofon', 'kamera', 'kabel'];
-            $furniturKeywords = ['kursi', 'meja', 'lemari', 'rak'];
-
-            $keywords = match ($request->kategori) {
-                'Elektronik' => $elektronikKeywords,
-                'Furnitur' => $furniturKeywords,
-                default => [],
-            };
-
-            if ($request->kategori === 'Perlengkapan') {
-                $query->where(function ($builder) use ($elektronikKeywords, $furniturKeywords) {
-                    foreach (array_merge($elektronikKeywords, $furniturKeywords) as $keyword) {
-                        $builder->where('nama_barang', 'not like', "%{$keyword}%");
-                    }
-                });
-            } else {
-                $query->where(function ($builder) use ($keywords) {
-                    foreach ($keywords as $keyword) {
-                        $builder->orWhere('nama_barang', 'like', "%{$keyword}%");
-                    }
-                });
-            }
+        if ($request->filled('status') && in_array($request->status, $statusOptions, true)) {
+            $query->where(function ($builder) use ($request) {
+                if ($request->status === 'habis') {
+                    $builder->whereRaw('jumlah_tersedia = 0');
+                } elseif ($request->status === 'tersedia') {
+                    $builder->whereRaw('jumlah_tersedia > 0')
+                        ->whereRaw('jumlah_tersedia < jumlah_total');
+                } elseif ($request->status === 'lengkap') {
+                    $builder->whereRaw('jumlah_tersedia = jumlah_total');
+                }
+            });
         }
 
         $inventaris = $query->paginate(10)->withQueryString();
@@ -70,7 +58,7 @@ class InventarisController extends Controller
         return view('admin.inventaris.index', compact(
             'inventaris',
             'kodeBaru',
-            'kategoriOptions',
+            'statusOptions',
             'totalBarang',
             'stokMenipis',
             'stokMenipisItem',
@@ -81,6 +69,20 @@ class InventarisController extends Controller
     public function store(InventarisRequest $request)
     {
         $data = $request->validated();
+        $normalizedName = mb_strtolower(trim($data['nama_barang']));
+
+        $existingItem = Inventaris::whereRaw('LOWER(nama_barang) = ?', [$normalizedName])->first();
+
+        if ($existingItem) {
+            $existingItem->increment('jumlah_total', (int) $data['jumlah_total']);
+            $existingItem->increment('jumlah_tersedia', (int) $data['jumlah_total']);
+            $existingItem->tanggal_masuk = $data['tanggal_masuk'];
+            $existingItem->save();
+
+            return redirect()->route('admin.inventaris.index')
+                ->with('success', 'Stok inventaris berhasil ditambahkan ke item yang sudah ada.');
+        }
+
         $data['kode_barang'] = $this->generateKode();
         $data['jumlah_tersedia'] = $data['jumlah_total'];
 

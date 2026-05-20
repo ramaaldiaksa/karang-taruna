@@ -20,7 +20,9 @@ class DashboardController extends Controller
         $peminjamanMenunggu = Peminjaman::where('status', 'menunggu')->count();
         $totalInventaris = Inventaris::count();
         $totalKeuangan = Keuangan::count();
-        $totalSurat = Surat::count();
+        $totalSuratMasuk = Surat::where('jenis_surat', 'surat masuk')->count();
+        $totalSuratKeluar = Surat::where('jenis_surat', 'surat keluar')->count();
+        $totalSurat = $totalSuratMasuk + $totalSuratKeluar;
 
         $peminjamanTerbaru = Peminjaman::with(['masyarakat', 'detail.inventaris'])
             ->orderBy('created_at', 'desc')
@@ -59,11 +61,13 @@ class DashboardController extends Controller
         })->map->count();
 
         return view('admin.dashboard', compact(
-            'totalPeminjaman', 
-            'peminjamanMenunggu', 
-            'totalInventaris', 
-            'totalKeuangan', 
+            'totalPeminjaman',
+            'peminjamanMenunggu',
+            'totalInventaris',
+            'totalKeuangan',
             'totalSurat',
+            'totalSuratMasuk',
+            'totalSuratKeluar',
             'peminjamanTerbaru',
             'trenPeminjaman',
             'totalPemasukan',

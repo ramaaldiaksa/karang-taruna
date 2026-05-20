@@ -18,7 +18,7 @@ class PeminjamanController extends Controller
                         ->orWhere('no_telepon', 'like', "%{$search}%");
                 });
             })
-            ->when(request('status'), fn ($query, $status) => $query->where('status', $status))
+            ->where('status', 'menunggu')
             ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->withQueryString();
@@ -26,17 +26,11 @@ class PeminjamanController extends Controller
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
-    public function verifikasiForm($id)
-    {
-        $peminjaman = Peminjaman::with(['masyarakat', 'detail.inventaris'])->findOrFail($id);
-        return view('admin.peminjaman.verifikasi', compact('peminjaman'));
-    }
-
     public function verifikasi(Request $request, $id)
     {
         $request->validate(['status' => 'required|in:disetujui,ditolak']);
         $peminjaman = Peminjaman::findOrFail($id);
-        
+
         if ($request->status == 'disetujui' && $peminjaman->status == 'menunggu') {
             // Update stok
             foreach ($peminjaman->detail as $dt) {

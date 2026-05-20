@@ -2,35 +2,6 @@
 @section('title', 'Kelola Inventaris')
 
 @section('content')
-    @php
-        $kategoriLabel = function ($namaBarang) {
-            $nama = strtolower($namaBarang);
-
-            if (
-                str_contains($nama, 'proyektor') ||
-                str_contains($nama, 'laptop') ||
-                str_contains($nama, 'speaker') ||
-                str_contains($nama, 'sound') ||
-                str_contains($nama, 'mikrofon') ||
-                str_contains($nama, 'kamera') ||
-                str_contains($nama, 'kabel')
-            ) {
-                return 'Elektronik';
-            }
-
-            if (
-                str_contains($nama, 'kursi') ||
-                str_contains($nama, 'meja') ||
-                str_contains($nama, 'lemari') ||
-                str_contains($nama, 'rak')
-            ) {
-                return 'Furnitur';
-            }
-
-            return 'Perlengkapan';
-        };
-    @endphp
-
     <style>
         .inventory-page {
             display: flex;
@@ -352,12 +323,34 @@
         </form>
     </x-admin.modal>
 
+    {{-- Modal Konfirmasi Hapus Inventaris --}}
+    <x-admin.modal id="modalHapusInventaris" title="Hapus Inventaris" icon="fas fa-trash-alt">
+        <div class="modal-body admin-modal__body">
+            <p class="text-muted mb-0">Apakah Anda yakin ingin menghapus barang <strong id="deleteItemName"></strong>?
+                Tindakan ini tidak dapat dibatalkan.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <form id="formHapusInventaris" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-2"></i>Hapus Barang
+                </button>
+            </form>
+        </div>
+    </x-admin.modal>
+
     <div class="inventory-page">
 
         <div class="inventory-filter-card">
             <form action="{{ route('admin.inventaris.index') }}" method="GET" class="inventory-filter-form">
                 <x-admin.search-input name="q" placeholder="Cari Kode atau Nama Barang..." :value="request('q')" />
-                <x-admin.filter-select name="kategori" placeholder="Semua Kategori" :options="$kategoriOptions" :autosubmit="true" />
+                <x-admin.filter-select name="status" placeholder="Semua Status" :options="collect($statusOptions)
+                    ->mapWithKeys(function ($opt) {
+                        return [$opt => ucfirst($opt)];
+                    })
+                    ->toArray()" :autosubmit="true" />
             </form>
 
             <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahInventaris">Tambah
@@ -378,7 +371,7 @@
                             <tr>
                                 <th>Kode<br>Barang</th>
                                 <th>Nama Barang</th>
-                                <th>Kategori</th>
+                                <th>Tanggal Masuk</th>
                                 <th class="text-center">Total<br>Unit</th>
                                 <th>Tersedia</th>
                                 <th class="text-center">Aksi</th>
@@ -387,14 +380,13 @@
                         <tbody>
                             @foreach ($inventaris as $item)
                                 @php
-                                    $kategori = $kategoriLabel($item->nama_barang);
                                     $tersedia = (int) $item->jumlah_tersedia;
                                     $total = max((int) $item->jumlah_total, 1);
                                 @endphp
                                 <tr>
                                     <td><span class="admin-table__code">{{ $item->kode_barang }}</span></td>
                                     <td>{{ $item->nama_barang }}</td>
-                                    <td>{{ $kategori }}</td>
+                                    <td>{{ $item->tanggal_masuk->format('d/m/Y') }}</td>
                                     <td class="text-center text-dark">{{ $item->jumlah_total }}</td>
                                     <td>
                                         @if ($tersedia === 0)
@@ -411,14 +403,12 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('admin.inventaris.destroy', $item->id_inventaris) }}"
-                                            method="POST" onsubmit="return confirm('Hapus inventaris ini?')"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-admin.icon-action type="submit" variant="delete"
-                                                title="Hapus inventaris" />
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                            data-bs-toggle="modal" data-bs-target="#modalHapusInventaris"
+                                            data-delete-url="{{ route('admin.inventaris.destroy', $item->id_inventaris) }}"
+                                            data-item-name="{{ $item->nama_barang }}" title="Hapus inventaris">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -456,6 +446,19 @@
                 document.getElementById('edit_tanggal_masuk').value = button.dataset.tanggal || '';
                 document.getElementById('edit_jumlah_total').value = button.dataset.jumlah || '';
             });
+
+            // Handle delete modal
+            const deleteModal = document.getElementById('modalHapusInventaris');
+            if (deleteModal) {
+                deleteModal.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const deleteForm = document.getElementById('formHapusInventaris');
+                    const itemNameSpan = document.getElementById('deleteItemName');
+
+                    deleteForm.action = button.dataset.deleteUrl;
+                    itemNameSpan.textContent = button.dataset.itemName || 'barang ini';
+                });
+            }
         });
     </script>
 @endsection

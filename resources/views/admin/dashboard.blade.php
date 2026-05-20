@@ -191,6 +191,111 @@
         .stats-action {
             margin-top: auto;
         }
+
+        .surat-card-body {
+            padding: 1.35rem 1.25rem 1.15rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .surat-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0f2f6b;
+            letter-spacing: -0.01em;
+        }
+
+        .surat-icon {
+            color: #a9b4c9;
+            font-size: 1.2rem;
+        }
+
+        .surat-total-box {
+            background: #f6f8fc;
+            border: 1px solid #d5deea;
+            border-radius: 0.85rem;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .surat-total-label {
+            font-size: 0.68rem;
+            letter-spacing: 1.1px;
+            font-weight: 700;
+            color: #6b7890;
+            margin-bottom: 0.25rem;
+        }
+
+        .surat-total-amount {
+            font-size: 1.8rem;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #0f2f6b;
+        }
+
+        .surat-chart-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .surat-chart-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 260px;
+            max-height: 260px;
+        }
+
+        .surat-legend {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .surat-legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .surat-legend-left {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            min-width: 0;
+        }
+
+        .surat-legend-dot {
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 999px;
+            flex: 0 0 auto;
+        }
+
+        .surat-legend-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #51617f;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .surat-legend-count {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f2f6b;
+            white-space: nowrap;
+        }
     </style>
 
     <div class="dashboard-full" id="dashboardFull">
@@ -277,7 +382,7 @@
         <!-- Charts Row -->
         <div class="row mb-4 g-3 charts-row">
             <!-- Tren Peminjaman Bulanan -->
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="card border main-card" style="border-radius: 10px; border-color: #e5e7eb !important;">
                     <div class="card-body trend-card-body">
                         <div class="d-flex justify-content-between align-items-start mb-4">
@@ -292,12 +397,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Statistik Keuangan (dipindah ke samping Tren Peminjaman) -->
-            <div class="col-lg-4">
+            <!-- Statistik Keuangan -->
+            <div class="col-lg-3">
                 <div class="card border main-card" style="border-radius: 10px; border-color: #e5e7eb !important;">
                     <div class="card-body stats-card-body">
                         <div class="d-flex justify-content-between align-items-start mb-4">
-                            <h6 class="stats-card-title mb-0">Statistik Keuangan</h6>
+                            <h6 class="stats-card-title mb-0">Laporan Keuangan</h6>
                             <i class="fas fa-chart-line stats-icon"></i>
                         </div>
 
@@ -359,7 +464,55 @@
                     </div>
                 </div>
             </div>
+            <!-- Diagram Surat -->
+            <div class="col-lg-3 d-flex">
+                <div class="card border main-card"
+                    style="border-radius: 10px; border-color: #e5e7eb !important; width:100%;">
+                    <div class="card-body surat-card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h6 class="surat-card-title mb-0">Arsip Surat</h6>
+                            <i class="fas fa-envelope-open-text surat-icon"></i>
+                        </div>
+
+                        <div class="surat-chart-wrap">
+                            <canvas id="suratChart"></canvas>
+                        </div>
+
+                        <div class="surat-legend">
+                            <div class="surat-legend-item">
+                                <div class="surat-legend-left">
+                                    <span class="surat-legend-dot" style="background: #1a3a8a;"></span>
+                                    <span class="surat-legend-label">Surat Masuk</span>
+                                </div>
+                                <span class="surat-legend-count">{{ $totalSuratMasuk }}</span>
+                            </div>
+                            <div class="surat-legend-item">
+                                <div class="surat-legend-left">
+                                    <span class="surat-legend-dot" style="background: #e6a817;"></span>
+                                    <span class="surat-legend-label">Surat Keluar</span>
+                                </div>
+                                <span class="surat-legend-count">{{ $totalSuratKeluar }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="stats-label mb-0"></span>
+                        </div>
+
+                        <div class="surat-total-box">
+                            <div class="surat-total-label text-uppercase">Total Jumlah Surat</div>
+                            <div class="surat-total-amount">{{ $totalSurat }}</div>
+                        </div>
+
+                        <a href="{{ route('admin.surat.index') }}" class="btn stats-action w-100 mt-auto">
+                            <i class="fas fa-archive me-2"></i> Arsip Surat <i class="fas fa-chevron-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <!-- end .dashboard-full -->
     @endsection
 
@@ -422,6 +575,42 @@
                                     },
                                     grid: {
                                         display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Diagram Surat Masuk/Keluar - Doughnut Chart
+                const suratEl = document.getElementById('suratChart');
+                if (suratEl) {
+                    const suratCtx = suratEl.getContext('2d');
+                    new Chart(suratCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Surat Masuk', 'Surat Keluar'],
+                            datasets: [{
+                                data: @json([$totalSuratMasuk, $totalSuratKeluar]),
+                                backgroundColor: ['#1a3a8a', '#e6a817'],
+                                borderColor: '#ffffff',
+                                borderWidth: 2,
+                                hoverOffset: 6,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '68%',
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return ' ' + context.label + ': ' + context.parsed;
+                                        }
                                     }
                                 }
                             }

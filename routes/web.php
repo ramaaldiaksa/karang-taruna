@@ -36,17 +36,16 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin Protected Routes
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     Route::resource('inventaris', AdminInventarisController::class);
     Route::resource('surat', AdminSuratController::class);
     Route::resource('keuangan', AdminKeuanganController::class);
-    Route::resource('berita', AdminBeritaController::class);
-    
+    Route::resource('berita', AdminBeritaController::class)->except(['create', 'edit']);
+
     // Peminjaman
     Route::get('peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');
-    Route::get('peminjaman/{id}/verifikasi', [AdminPeminjamanController::class, 'verifikasiForm'])->name('peminjaman.verifikasi_form');
     Route::post('peminjaman/{id}/verifikasi', [AdminPeminjamanController::class, 'verifikasi'])->name('peminjaman.verifikasi');
-    
+
     // Pengembalian
     Route::get('pengembalian', [AdminPengembalianController::class, 'index'])->name('pengembalian.index');
     Route::get('pengembalian/riwayat', [AdminPengembalianController::class, 'riwayat'])->name('pengembalian.riwayat');
