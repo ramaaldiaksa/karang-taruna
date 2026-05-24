@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Peminjaman;
 use App\Models\Inventaris;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\StatusPeminjamanMail;
 
 class PeminjamanController extends Controller
 {
@@ -51,6 +54,17 @@ class PeminjamanController extends Controller
                     'id_admin' => auth()->id()
                 ]);
             });
+
+            // Kirim email notifikasi setelah transaksi database sukses berkomitmen
+            if ($peminjaman->masyarakat && $peminjaman->masyarakat->email) {
+                try {
+                    Mail::to($peminjaman->masyarakat->email)->send(new StatusPeminjamanMail($peminjaman));
+                } catch (\Exception $mailException) {
+                    // Log error pengiriman email agar proses approval tetap sukses berjalan lancar
+                    Log::error("Gagal mengirim email status peminjaman #{$peminjaman->id_peminjaman} ke {$peminjaman->masyarakat->email}: " . $mailException->getMessage());
+                }
+            }
+
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

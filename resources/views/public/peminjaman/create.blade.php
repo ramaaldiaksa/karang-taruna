@@ -74,7 +74,7 @@
                                     <label class="form-label text-dark fw-medium" style="font-size: 0.9rem;">No. WhatsApp</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light-gray border-0 text-muted">+62</span>
-                                        <input type="text" name="no_telepon" id="no_telepon" class="form-control form-control-lg bg-light-gray border-0 ps-2" value="{{ old('no_telepon') }}" placeholder="812xxx" style="font-size: 0.95rem;" required>
+                                        <input type="text" name="no_telepon" id="no_telepon" class="form-control form-control-lg bg-light-gray border-0 ps-2" value="{{ old('no_telepon') }}" placeholder="812xxx" style="font-size: 0.95rem;" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
