@@ -527,7 +527,7 @@
                     new Chart(trenCtx, {
                         type: 'bar',
                         data: {
-                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                            labels: @json($trenPeminjamanLabels),
                             datasets: [{
                                 data: @json($trenPeminjaman),
                                 backgroundColor: function(context) {

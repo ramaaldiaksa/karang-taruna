@@ -13,10 +13,18 @@
         }
 
         .sidebar {
-            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
             background-color: #343a40;
             color: white;
             padding-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 1000;
         }
 
         .sidebar a {
@@ -34,8 +42,18 @@
             border-radius: 5px;
         }
 
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid #495057;
+        }
+
         .content {
             padding: 20px;
+            margin-left: 250px;
         }
 
         .card {
@@ -49,62 +67,63 @@
 
     <div class="d-flex">
         <!-- Sidebar -->
-        <div class="sidebar flex-shrink-0" style="width: 250px;">
+        <div class="sidebar">
             <div class="px-3 mb-4">
                 <h4 class="fw-bold">Admin Panel</h4>
             </div>
-            <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <i class="fas fa-home me-2"></i> Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.inventaris.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.inventaris.*') ? 'active' : '' }}">
-                        <i class="fas fa-box me-2"></i> Kelola Inventaris
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.peminjaman.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.peminjaman.*') ? 'active' : '' }}">
-                        <i class="fas fa-handshake me-2"></i> Peminjaman Masuk
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.pengembalian.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.pengembalian.index') ? 'active' : '' }}">
-                        <i class="fas fa-check-circle me-2"></i> Verifikasi Pengembalian
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.pengembalian.riwayat') }}"
-                        class="nav-link {{ request()->routeIs('admin.pengembalian.riwayat') ? 'active' : '' }}">
-                        <i class="fas fa-history me-2"></i> Riwayat Pengembalian
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.surat.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.surat.*') ? 'active' : '' }}">
-                        <i class="fas fa-envelope me-2"></i> Arsip Surat
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.keuangan.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.keuangan.*') ? 'active' : '' }}">
-                        <i class="fas fa-money-bill-wave me-2"></i> Laporan Keuangan
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.berita.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
-                        <i class="fas fa-newspaper me-2"></i> Kelola Berita
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <div class="px-3">
+            <div class="sidebar-nav">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                            <i class="fas fa-home me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.inventaris.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.inventaris.*') ? 'active' : '' }}">
+                            <i class="fas fa-box me-2"></i> Kelola Inventaris
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.peminjaman.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.peminjaman.*') ? 'active' : '' }}">
+                            <i class="fas fa-handshake me-2"></i> Peminjaman Masuk
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.pengembalian.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.pengembalian.index') ? 'active' : '' }}">
+                            <i class="fas fa-check-circle me-2"></i> Verifikasi Pengembalian
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.pengembalian.riwayat') }}"
+                            class="nav-link {{ request()->routeIs('admin.pengembalian.riwayat') ? 'active' : '' }}">
+                            <i class="fas fa-history me-2"></i> Riwayat Pengembalian
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.surat.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.surat.*') ? 'active' : '' }}">
+                            <i class="fas fa-envelope me-2"></i> Arsip Surat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.keuangan.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.keuangan.*') ? 'active' : '' }}">
+                            <i class="fas fa-money-bill-wave me-2"></i> Laporan Keuangan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.berita.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                            <i class="fas fa-newspaper me-2"></i> Kelola Berita
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger w-100"><i class="fas fa-sign-out-alt me-2"></i>

@@ -29,13 +29,15 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        // Tren Peminjaman Bulanan (6 bulan terakhir)
-        $tahunSekarang = Carbon::now()->year;
+        // Tren Peminjaman Bulanan (6 bulan terakhir secara dinamis)
         $trenPeminjaman = [];
-        for ($i = 1; $i <= 6; $i++) {
-            $trenPeminjaman[] = Peminjaman::whereYear('tanggal_pengajuan', $tahunSekarang)
-                ->whereMonth('tanggal_pengajuan', $i)
+        $trenPeminjamanLabels = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $date = Carbon::now()->subMonths($i);
+            $trenPeminjaman[] = Peminjaman::whereYear('tanggal_pengajuan', $date->year)
+                ->whereMonth('tanggal_pengajuan', $date->month)
                 ->count();
+            $trenPeminjamanLabels[] = $date->translatedFormat('M');
         }
 
         // Statistik Keuangan
@@ -70,11 +72,11 @@ class DashboardController extends Controller
             'totalSuratKeluar',
             'peminjamanTerbaru',
             'trenPeminjaman',
+            'trenPeminjamanLabels',
             'totalPemasukan',
             'totalPengeluaran',
             'saldoAkhir',
-            'kategoriInventaris',
-            'tahunSekarang'
+            'kategoriInventaris'
         ));
     }
 }

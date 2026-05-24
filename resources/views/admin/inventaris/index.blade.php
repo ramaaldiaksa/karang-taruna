@@ -121,51 +121,6 @@
             overflow: hidden;
         }
 
-        .inventory-table-shell .admin-table {
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 0;
-            width: 100%;
-        }
-
-        .inventory-table-shell .admin-table thead th {
-            background: #edf3fb !important;
-            border-bottom: 2px solid #d0d9e8 !important;
-            color: #2f466b !important;
-            font-size: 0.74rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            padding: 24px 32px !important;
-            text-transform: uppercase;
-            vertical-align: middle;
-        }
-
-        .inventory-table-shell .admin-table tbody tr {
-            background: #ffffff;
-        }
-
-        .inventory-table-shell .admin-table tbody td {
-            border-bottom: 1px solid #dde6f1 !important;
-            color: #2f3d52;
-            font-size: 0.98rem;
-            padding: 28px 32px !important;
-            vertical-align: middle;
-        }
-
-        .inventory-table-shell .admin-table tbody tr:last-child td {
-            border-bottom: 0 !important;
-        }
-
-        .inventory-table-shell .admin-table tbody tr:hover td {
-            background: #fbfdff;
-        }
-
-        .inventory-table-shell .admin-table__code {
-            color: #0b2e72;
-            font-size: 0.96rem;
-            font-weight: 800;
-        }
-
         .inventory-table-shell .admin-status-pill {
             font-size: 0.85rem;
             font-weight: 500;

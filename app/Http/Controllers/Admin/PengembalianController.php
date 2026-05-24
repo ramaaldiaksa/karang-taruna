@@ -40,6 +40,14 @@ class PengembalianController extends Controller
         return view('admin.pengembalian.riwayat', compact('pengembalians'));
     }
 
+    public function create()
+    {
+        $peminjamans = Peminjaman::where('status', 'disetujui')
+            ->with('masyarakat')
+            ->get();
+        return view('admin.pengembalian.create', compact('peminjamans'));
+    }
+
     public function store(PengembalianRequest $request)
     {
         $peminjaman = Peminjaman::findOrFail($request->id_peminjaman);

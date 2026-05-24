@@ -99,7 +99,16 @@ class InventarisController extends Controller
 
     public function update(InventarisRequest $request, Inventaris $inventari)
     {
-        $inventari->update($request->validated());
+        $data = $request->validated();
+        $diff = (int) $data['jumlah_total'] - (int) $inventari->jumlah_total;
+
+        if ($inventari->jumlah_tersedia + $diff < 0) {
+            return back()->with('error', 'Jumlah total tidak bisa dikurangi sebanyak itu karena barang sedang dipinjam.');
+        }
+
+        $data['jumlah_tersedia'] = $inventari->jumlah_tersedia + $diff;
+
+        $inventari->update($data);
         return redirect()->route('admin.inventaris.index')
             ->with('success', 'Data inventaris berhasil diperbarui.');
     }

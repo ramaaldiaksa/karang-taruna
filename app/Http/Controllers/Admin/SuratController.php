@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Surat;
 use App\Http\Requests\SuratRequest;
+use Illuminate\Support\Facades\Storage;
 
 class SuratController extends Controller
 {
@@ -48,6 +49,10 @@ class SuratController extends Controller
 
     public function destroy(Surat $surat)
     {
+        if ($surat->file_surat && Storage::disk('public')->exists($surat->file_surat)) {
+            Storage::disk('public')->delete($surat->file_surat);
+        }
+
         $surat->delete();
         return redirect()->route('admin.surat.index')->with('success', 'Arsip surat berhasil dihapus.');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Peminjaman;
 use App\Models\Inventaris;
+use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
@@ -31,22 +32,28 @@ class PeminjamanController extends Controller
         $request->validate(['status' => 'required|in:disetujui,ditolak']);
         $peminjaman = Peminjaman::findOrFail($id);
 
-        if ($request->status == 'disetujui' && $peminjaman->status == 'menunggu') {
-            // Update stok
-            foreach ($peminjaman->detail as $dt) {
-                $inv = $dt->inventaris;
-                if ($inv->jumlah_tersedia >= $dt->jumlah_pinjam) {
-                    $inv->decrement('jumlah_tersedia', $dt->jumlah_pinjam);
-                } else {
-                    return back()->with('error', 'Stok barang tidak mencukupi untuk ' . $inv->nama_barang);
+        try {
+            DB::transaction(function () use ($request, $peminjaman) {
+                if ($request->status == 'disetujui' && $peminjaman->status == 'menunggu') {
+                    // Update stok
+                    foreach ($peminjaman->detail as $dt) {
+                        $inv = $dt->inventaris;
+                        if ($inv->jumlah_tersedia >= $dt->jumlah_pinjam) {
+                            $inv->decrement('jumlah_tersedia', $dt->jumlah_pinjam);
+                        } else {
+                            throw new \Exception('Stok barang tidak mencukupi untuk ' . $inv->nama_barang);
+                        }
+                    }
                 }
-            }
-        }
 
-        $peminjaman->update([
-            'status' => $request->status,
-            'id_admin' => auth()->id()
-        ]);
+                $peminjaman->update([
+                    'status' => $request->status,
+                    'id_admin' => auth()->id()
+                ]);
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
 
         return redirect()->route('admin.peminjaman.index')->with('success', 'Status peminjaman berhasil diperbarui.');
     }
