@@ -14,8 +14,8 @@ class KeuanganController extends Controller
         $keuangan = Keuangan::orderBy('tanggal', 'desc')->get();
         $totalPemasukan = Keuangan::where('jenis_transaksi', 'pemasukan')->sum('jumlah');
         $totalPengeluaran = Keuangan::where('jenis_transaksi', 'pengeluaran')->sum('jumlah');
-        $saldo = $totalPemasukan - $totalPengeluaran;
+        $saldoKas = $totalPemasukan - $totalPengeluaran;
 
-        return view('public.keuangan', compact('keuangan', 'totalPemasukan', 'totalPengeluaran', 'saldo'));
+        return view('public.keuangan', compact('keuangan', 'totalPemasukan', 'totalPengeluaran', 'saldoKas'));
     }
 }

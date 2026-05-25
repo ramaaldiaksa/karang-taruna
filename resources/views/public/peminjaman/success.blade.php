@@ -39,7 +39,7 @@
 
     <div class="row g-4">
         <!-- Main Content -->
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card border shadow-sm h-100" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important;">
                 <div class="card-body p-5 text-center">
                     
@@ -89,61 +89,6 @@
                         <a href="{{ route('home') }}" class="btn btn-primary px-4 py-2 shadow-sm" style="border-radius: 6px; font-weight: 500;">
                             Kembali ke Beranda
                         </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-            <!-- Card Ketentuan -->
-            <div class="card border shadow-sm mb-4" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important; background-color: #fcfcfc;">
-                <div class="card-body p-4">
-                    <h6 class="text-dark fw-semibold mb-4 d-flex align-items-center">
-                        <i class="fas fa-gavel text-primary me-2"></i> Ketentuan Peminjaman
-                    </h6>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-3 d-flex align-items-start">
-                            <i class="far fa-circle text-primary mt-1 me-3" style="font-size: 0.6rem;"></i>
-                            <span class="text-muted" style="font-size: 0.9rem; line-height: 1.6;">Barang wajib dikembalikan dalam kondisi bersih dan utuh sesuai jumlah awal.</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-start">
-                            <i class="far fa-circle text-primary mt-1 me-3" style="font-size: 0.6rem;"></i>
-                            <span class="text-muted" style="font-size: 0.9rem; line-height: 1.6;">Keterlambatan pengembalian akan dikenakan sanksi sosial atau denda administratif.</span>
-                        </li>
-                        <li class="d-flex align-items-start">
-                            <i class="far fa-circle text-primary mt-1 me-3" style="font-size: 0.6rem;"></i>
-                            <span class="text-muted" style="font-size: 0.9rem; line-height: 1.6;">Kerusakan barang menjadi tanggung jawab penuh peminjam untuk diperbaiki/diganti.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Card Bantuan (Dark) -->
-            <div class="card bg-primary text-white border-0 shadow-sm mb-4" style="border-radius: 12px;">
-                <div class="card-body p-4">
-                    <h6 class="fw-semibold mb-3 d-flex align-items-center">
-                        <i class="far fa-question-circle me-2"></i> Butuh Bantuan?
-                    </h6>
-                    <p class="text-white-50 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
-                        Jika Anda mengalami kendala dalam proses peminjaman, silakan hubungi tim administrasi kami.
-                    </p>
-                    <a href="#" class="btn btn-light text-primary w-100 fw-medium shadow-sm" style="border-radius: 6px;">
-                        <i class="fab fa-whatsapp me-2"></i> Hubungi via WhatsApp
-                    </a>
-                </div>
-            </div>
-
-            <!-- Card Estimasi -->
-            <div class="card border-0 shadow-sm" style="border-radius: 12px; background-color: #f1f3f5;">
-                <div class="card-body p-4">
-                    <h6 class="text-primary fw-semibold mb-3" style="font-size: 0.95rem;">Estimasi Waktu Verifikasi</h6>
-                    <div class="d-flex align-items-start">
-                        <i class="far fa-clock text-warning mt-1 me-3 fa-lg"></i>
-                        <div>
-                            <span class="d-block text-dark fw-bold mb-1">1-3 Jam Kerja</span>
-                            <span class="text-muted small">Senin - Sabtu, 08:00 - 16:00</span>
-                        </div>
                     </div>
                 </div>
             </div>

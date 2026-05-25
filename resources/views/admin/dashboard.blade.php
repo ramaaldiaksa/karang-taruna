@@ -367,7 +367,7 @@
                 <div class="card border main-card" style="border-radius: 10px; border-color: #e5e7eb !important;">
                     <div class="card-body trend-card-body">
                         <div class="d-flex justify-content-between align-items-start mb-4">
-                            <h6 class="trend-card-title mb-0">Tren Peminjaman Bulanan</h6>
+                            <h6 class="trend-card-title mb-0">Peminjaman Bulanan</h6>
                             <i class="fas fa-chart-line trend-icon"></i>
                         </div>
 

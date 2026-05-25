@@ -6,8 +6,8 @@
         <!-- Header -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
             <div>
-                <h6 class="text-primary fw-bold mb-1" style="letter-spacing: 1.5px; font-size: 0.75rem;">UPDATE TERBARU</h6>
-                <h2 class="fw-bold mb-0" style="font-size: 1.8rem;">Warta Desa & Kegiatan</h2>
+                <h6 class="text-primary fw-bold mb-1" style="letter-spacing: 1.5px; font-size: 0.75rem;">UPDATE TERKINI</h6>
+                <h2 class="fw-bold mb-0" style="font-size: 1.8rem;">Berita & Kegiatan</h2>
             </div>
             <div class="mt-3 mt-md-0" style="width: 100%; max-width: 280px;">
                 <form action="{{ route('public.berita') }}" method="GET">

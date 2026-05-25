@@ -6,58 +6,47 @@
     <div class="row align-items-end mb-4 pb-2">
         <div class="col-md-8">
             <h2 class="text-primary fw-semibold mb-2" style="font-size: 1.5rem;">Laporan Keuangan</h2>
-            <p class="text-muted mb-0" style="font-size: 1rem;">Transparansi tata kelola dana organisasi untuk mewujudkan akuntabilitas dan integritas desa yang berkelanjutan.</p>
-        </div>
-        <div class="col-md-4 text-md-end mt-4 mt-md-0">
-            <button class="btn btn-outline-secondary px-3 py-2 fw-medium me-2 shadow-sm bg-white" style="border-radius: 6px; border-color: #dee2e6;">
-                <i class="fas fa-download me-1 text-muted"></i> PDF
-            </button>
-            <button class="btn btn-outline-secondary px-3 py-2 fw-medium shadow-sm bg-white" style="border-radius: 6px; border-color: #dee2e6;">
-                <i class="far fa-file-excel me-1 text-muted"></i> Excel
-            </button>
+            <p class="text-muted mb-0" style="font-size: 1rem;">Transparansi dan akuntabilitas pengelolaan dana Karang Taruna Rimba Ketapan. Pantau arus kas masuk dan keluar secara real-time.</p>
         </div>
     </div>
 
     <!-- Summary Cards -->
     <div class="row g-4 mb-5">
         <div class="col-md-4">
-            <div class="card h-100 bg-primary text-white border-0 shadow-sm" style="border-radius: 12px;">
-                <div class="card-body p-4 position-relative">
-                    <h6 class="fw-semibold tracking-wider mb-4 text-white-50" style="letter-spacing: 1px; font-size: 0.85rem;">SALDO KAS SAAT INI</h6>
-                    <h3 class="fw-bold mb-4">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
-                    <div class="d-flex align-items-center text-white" style="font-size: 0.9rem;">
-                        <i class="fas fa-chart-line me-2"></i> <span class="fw-medium">+12% dari bulan lalu</span>
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background-color: #1a3a8a;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                        <i class="fas fa-wallet fa-2x"></i>
                     </div>
-                    <div class="position-absolute" style="top: 1.5rem; right: 1.5rem;">
-                        <i class="fas fa-wallet fa-2x text-white-50 opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 bg-white border shadow-sm" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important;">
-                <div class="card-body p-4 position-relative">
-                    <h6 class="text-muted fw-semibold tracking-wider mb-4" style="letter-spacing: 1px; font-size: 0.85rem;">TOTAL PEMASUKAN</h6>
-                    <h3 class="text-dark fw-bold mb-2">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</h3>
-                    <div class="text-muted" style="font-size: 0.9rem;">
-                        Periode: {{ date('F Y') }}
-                    </div>
-                    <div class="position-absolute" style="top: 1.5rem; right: 1.5rem;">
-                        <i class="fas fa-arrow-down text-primary fa-lg"></i>
+                    <div>
+                        <p class="mb-1 text-white-50 fw-semibold">Total Saldo Kas</p>
+                        <h3 class="fw-bold mb-0">Rp {{ number_format($saldoKas, 0, ',', '.') }}</h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card h-100 bg-white border shadow-sm" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important;">
-                <div class="card-body p-4 position-relative">
-                    <h6 class="text-muted fw-semibold tracking-wider mb-4" style="letter-spacing: 1px; font-size: 0.85rem;">TOTAL PENGELUARAN</h6>
-                    <h3 class="text-dark fw-bold mb-2">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</h3>
-                    <div class="text-muted" style="font-size: 0.9rem;">
-                        Periode: {{ date('F Y') }}
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background-color: #1a7a3a;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                        <i class="fas fa-piggy-bank fa-2x"></i>
                     </div>
-                    <div class="position-absolute" style="top: 1.5rem; right: 1.5rem;">
-                        <i class="fas fa-arrow-up text-danger fa-lg"></i>
+                    <div>
+                        <p class="mb-1 text-white-50 fw-semibold">Total Pemasukan</p>
+                        <h4 class="fw-bold mb-0">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background-color: #b91c1c;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-white-50 fw-semibold">Total Pengeluaran</p>
+                        <h4 class="fw-bold mb-0">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</h4>
                     </div>
                 </div>
             </div>
@@ -65,39 +54,8 @@
     </div>
 
     <div class="row g-4">
-        <!-- Chart Section -->
-        <div class="col-lg-4">
-            <div class="card h-100 border shadow-sm" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important;">
-                <div class="card-body p-4 d-flex flex-column">
-                    <h6 class="text-dark fw-semibold mb-4">Arus Kas Bulanan</h6>
-                    
-                    <!-- Chart Placeholder -->
-                    <div class="flex-grow-1 d-flex flex-column justify-content-end mb-4" style="min-height: 200px;">
-                        <div class="d-flex justify-content-between align-items-end h-100 px-2 pb-3 border-bottom">
-                            <!-- Dummy Bars -->
-                            <div class="bg-light rounded-top w-100 mx-1" style="height: 30%;"></div>
-                            <div class="bg-light rounded-top w-100 mx-1" style="height: 40%;"></div>
-                            <div class="bg-light rounded-top w-100 mx-1" style="height: 25%;"></div>
-                            <div class="bg-light rounded-top w-100 mx-1" style="height: 60%;"></div>
-                            <div class="bg-light rounded-top w-100 mx-1" style="height: 45%;"></div>
-                            <div class="bg-primary rounded-top w-100 mx-1" style="height: 80%;"></div>
-                        </div>
-                        <div class="d-flex justify-content-between text-muted mt-2" style="font-size: 0.7rem; font-weight: 600;">
-                            <span>MEI</span><span>JUN</span><span>JUL</span><span>AGU</span><span>SEP</span><span class="text-primary">OKT</span>
-                        </div>
-                    </div>
-
-                    <!-- Info Alert -->
-                    <div class="alert bg-light-gray border-0 d-flex align-items-start mt-auto mb-0" style="border-radius: 8px;">
-                        <i class="fas fa-info-circle text-primary mt-1 me-2"></i>
-                        <p class="text-muted small mb-0" style="line-height: 1.5;">Peningkatan arus kas signifikan pada bulan Agustus dan Oktober sehubungan dengan iuran tahunan dan sponsor festival desa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Transactions Section -->
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card h-100 border shadow-sm" style="border-radius: 12px; border-color: rgba(0,0,0,0.08) !important;">
                 <div class="card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
                     <h6 class="text-dark fw-semibold mb-0">Riwayat Transaksi</h6>
