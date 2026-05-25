@@ -250,7 +250,7 @@
             display: flex;
             align-items: center;
             gap: 0.55rem;
-            min-width: 0;   
+            min-width: 0;
         }
 
         .surat-legend-dot {
@@ -288,15 +288,15 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="mb-1 text-uppercase fw-bold"
-                                    style="font-size: 0.65rem; letter-spacing: 1px; opacity: 0.9;">Total Peminjaman</p>
-                                <h2 class="fw-bold mb-0" style="font-size: 2.2rem;">{{ $totalPeminjaman }}</h2>
+                                    style="font-size: 0.65rem; letter-spacing: 1px; opacity: 0.9;">Verifikasi Peminjaman</p>
+                                <h2 class="fw-bold mb-0" style="font-size: 2.2rem;">{{ $peminjamanMenunggu }}</h2>
                             </div>
                             <i class="fas fa-handshake fa-2x" style="opacity: 0.3;"></i>
                         </div>
                     </div>
                     <div class="card-footer border-0 pt-0" style="background: transparent;">
                         <a href="{{ route('admin.peminjaman.index') }}"
-                            class="text-white text-decoration-none small fw-medium">Lihat Detail <i
+                            class="text-white text-decoration-none small fw-medium">Verifikasi Sekarang<i
                                 class="fas fa-arrow-right ms-1"></i></a>
                     </div>
                 </div>
@@ -307,14 +307,14 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="mb-1 text-uppercase fw-bold"
-                                    style="font-size: 0.65rem; letter-spacing: 1px; opacity: 0.9;">Menunggu Verifikasi</p>
-                                <h2 class="fw-bold mb-0" style="font-size: 2.2rem;">{{ $peminjamanMenunggu }}</h2>
+                                    style="font-size: 0.65rem; letter-spacing: 1px; opacity: 0.9;">Verifikasi Pengembalian</p>
+                                <h2 class="fw-bold mb-0" style="font-size: 2.2rem;">{{ $peminjamanBelumKembali }}</h2>
                             </div>
-                            <i class="fas fa-clock fa-2x" style="opacity: 0.3;"></i>
+                            <i class="fas fa-hourglass-half fa-2x" style="opacity: 0.3;"></i>
                         </div>
                     </div>
                     <div class="card-footer border-0 pt-0" style="background: transparent;">
-                        <a href="{{ route('admin.peminjaman.index') }}"
+                        <a href="{{ route('admin.pengembalian.index') }}"
                             class="text-white text-decoration-none small fw-medium">Verifikasi Sekarang <i
                                 class="fas fa-arrow-right ms-1"></i></a>
                     </div>
@@ -384,7 +384,7 @@
                     <div class="card-body stats-card-body">
                         <div class="d-flex justify-content-between align-items-start mb-4">
                             <h6 class="stats-card-title mb-0">Laporan Keuangan</h6>
-                            <i class="fas fa-chart-line stats-icon"></i>
+                            <i class="fas fa-money-bill-wave stats-icon"></i>
                         </div>
 
                         <div class="stats-content">

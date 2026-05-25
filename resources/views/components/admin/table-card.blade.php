@@ -60,16 +60,22 @@
         }
 
         .admin-status-pill--success {
+            font-size: 0.85rem;
+            font-weight: 500;
             background: #c9f8df;
             color: #008e5a;
         }
 
         .admin-status-pill--warning {
+            font-size: 0.85rem;
+            font-weight: 500;
             background: #fff0bd;
             color: #b37300;
         }
 
         .admin-status-pill--danger {
+            font-size: 0.85rem;
+            font-weight: 500;
             background: #ffe1e1;
             color: #d92727;
         }

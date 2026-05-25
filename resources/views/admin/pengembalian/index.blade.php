@@ -40,21 +40,7 @@
     </x-admin.modal>
 
     <div class="row g-4 mb-4">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a3a8a;">
-                <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3"
-                        style="width:56px;height:56px;">
-                        <i class="fas fa-check-circle fa-2x"></i>
-                    </div>
-                    <div>
-                        <p class="mb-1 text-white-50 fw-semibold">Total Pengembalian Selesai</p>
-                        <h3 class="fw-bold mb-0">{{ $pengembalians_count }} Transaksi</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#e6a817;">
                 <div class="card-body p-4 d-flex align-items-center">
                     <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3"
@@ -86,25 +72,27 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th>No. Pinjaman</th>
-                            <th>Peminjam</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Rencana Kembali</th>
-                            <th>Status</th>
-                            <th class="text-end">Aksi</th>
+                            <th class="text-center">Nomor<br>Peminjaman</th>
+                            <th class="text-center">Peminjam</th>
+                            <th class="text-center">Kontak Peminjam</th>
+                            <th class="text-center">Tanggal Pinjam</th>
+                            <th class="text-center">Rencana Kembali</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($peminjamans as $p)
                             <tr>
-                                <td><span class="admin-table__code">#{{ $p->id_peminjaman }}</span></td>
-                                <td>{{ $p->masyarakat->nama ?? '-' }}</td>
-                                <td class="admin-table__muted">
+                                <td class="text-center"><span class="admin-table__code">#{{ $p->id_peminjaman }}</span></td>
+                                <td class="text-center">{{ $p->masyarakat->nama ?? '-' }}</td>
+                                <td class="text-center">{{ $p->masyarakat->no_telepon ?? '-' }}</td>
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d M Y') }}</td>
-                                <td class="admin-table__muted">
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d M Y') }}</td>
-                                <td><span class="admin-status-pill admin-status-pill--warning">Belum Kembali</span></td>
-                                <td class="text-end">
+                                <td class="text-center"><span class="admin-status-pill admin-status-pill--warning">Belum Kembali</span></td>
+                                <td class="text-center">
                                     <x-admin.icon-action type="button" variant="view" icon="fas fa-undo"
                                         title="Catat pengembalian" data-bs-toggle="modal"
                                         data-bs-target="#modalTambahPengembalian" data-id="{{ $p->id_peminjaman }}"

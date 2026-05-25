@@ -172,37 +172,37 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Jenis Transaksi</th>
-                            <th>Keterangan</th>
-                            <th>Bukti</th>
-                            <th class="text-end">Jumlah</th>
+                            <th class="text-center">Tanggal</th>
+                            <th class="text-center">Jenis Transaksi</th>
+                            <th class="text-center">Keterangan</th>
+                            <th class="text-center">Bukti<br>Transaksi</th>
+                            <th class="text-center">Jumlah</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($keuangans as $k)
                             <tr>
-                                <td class="admin-table__muted">{{ \Carbon\Carbon::parse($k->tanggal)->format('d M Y') }}
+                                <td class="text-center admin-table__muted">{{ \Carbon\Carbon::parse($k->tanggal)->format('d M Y') }}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @if ($k->jenis_transaksi == 'pemasukan')
                                         <span class="admin-status-pill admin-status-pill--success">Pemasukan</span>
                                     @else
                                         <span class="admin-status-pill admin-status-pill--danger">Pengeluaran</span>
                                     @endif
                                 </td>
-                                <td class="admin-table__muted">{{ $k->keterangan ?: '-' }}</td>
-                                <td>
+                                <td class="text-center admin-table__muted">{{ $k->keterangan ?: '-' }}</td>
+                                <td class="text-center">
                                     @if ($k->bukti_transaksi)
                                         <a href="{{ Storage::url($k->bukti_transaksi) }}" target="_blank"
-                                            class="admin-table__code">Lihat</a>
+                                            class="admin-table__code">Lihat Bukti</a>
                                     @else
                                         <span class="admin-table__muted">-</span>
                                     @endif
                                 </td>
                                 <td
-                                    class="text-end fw-bold {{ $k->jenis_transaksi == 'pemasukan' ? 'text-success' : 'text-danger' }}">
+                                    class="text-center fw-bold {{ $k->jenis_transaksi == 'pemasukan' ? 'text-success' : 'text-danger' }}">
                                     {{ $k->jenis_transaksi == 'pemasukan' ? '+' : '-' }} Rp
                                     {{ number_format($k->jumlah, 0, ',', '.') }}
                                 </td>

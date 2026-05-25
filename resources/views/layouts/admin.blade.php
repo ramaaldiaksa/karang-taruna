@@ -155,7 +155,7 @@
                     <li>
                         <a href="{{ route('admin.pengembalian.index') }}"
                             class="nav-link {{ request()->routeIs('admin.pengembalian.index') ? 'active' : '' }}">
-                            <i class="fas fa-check-circle me-2"></i> Verifikasi Pengembalian
+                            <i class="fas fa-hourglass-half me-2"></i> Verifikasi Pengembalian
                         </a>
                     </li>
                     <li>

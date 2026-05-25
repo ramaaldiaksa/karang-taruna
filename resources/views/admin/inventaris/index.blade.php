@@ -324,11 +324,11 @@
                     <table class="table admin-table">
                         <thead>
                             <tr>
-                                <th>Kode<br>Barang</th>
-                                <th>Nama Barang</th>
-                                <th>Tanggal Masuk</th>
-                                <th class="text-center">Total<br>Unit</th>
-                                <th>Tersedia</th>
+                                <th class="text-start">Kode Barang</th>
+                                <th class="text-start">Nama Barang</th>
+                                <th class="text-start">Tanggal Masuk</th>
+                                <th class="text-center">Total Unit</th>
+                                <th class="text-center">Tersedia</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -339,11 +339,11 @@
                                     $total = max((int) $item->jumlah_total, 1);
                                 @endphp
                                 <tr>
-                                    <td><span class="admin-table__code">{{ $item->kode_barang }}</span></td>
-                                    <td>{{ $item->nama_barang }}</td>
-                                    <td>{{ $item->tanggal_masuk->format('d/m/Y') }}</td>
-                                    <td class="text-center text-dark">{{ $item->jumlah_total }}</td>
-                                    <td>
+                                    <td class="text-start"><span class="admin-table__code">{{ $item->kode_barang }}</span></td>
+                                    <td class="text-start">{{ $item->nama_barang }}</td>
+                                    <td class="text-start">{{ $item->tanggal_masuk->format('d/m/Y') }}</td>
+                                    <td class="text-center">{{ $item->jumlah_total }}</td>
+                                    <td class="text-center">
                                         @if ($tersedia === 0)
                                             <span class="admin-status-pill admin-status-pill--danger">0 Unit (Habis)</span>
                                         @elseif($tersedia <= $total-1)

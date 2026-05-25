@@ -222,18 +222,18 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th style="width: 8%;">No</th>
-                            <th style="width: 15%;">Gambar</th>
-                            <th>Judul</th>
-                            <th style="width: 18%;">Tanggal Terbit</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Gambar</th>
+                            <th class="text-center">Judul</th>
+                            <th class="text-center" style="width: 18%;">Tanggal Terbit</th>
                             <th class="text-center" style="width: 12%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($beritas as $berita)
                             <tr>
-                                <td>{{ $beritas->firstItem() + $loop->index }}</td>
-                                <td>
+                                <td class="text-center">{{ $beritas->firstItem() + $loop->index }}</td>
+                                <td class="text-center">
                                     @if ($berita->gambar)
                                         <img src="{{ asset('storage/' . $berita->gambar) }}" alt="Gambar Berita"
                                             class="img-thumbnail" style="width: 80px; height: 60px; object-fit: cover;">
@@ -241,16 +241,17 @@
                                         <span class="admin-table__muted">-</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-start">
                                     <div>{{ $berita->judul }}</div>
                                     <small
                                         class="admin-table__muted">{{ Str::limit(strip_tags($berita->isi), 50) }}</small>
                                 </td>
-                                <td class="admin-table__muted">
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($berita->tanggal_terbit)->translatedFormat('d F Y') }}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-icon btn-primary edit-berita-btn"
-                                        data-bs-toggle="modal" data-bs-target="#modalEditBerita"
+                                    <button type="button" class="btn btn-sm btn-icon edit-berita-btn"
+                                        style="background:#1a3a8a;border-color:#1a3a8a;color:#fff;" data-bs-toggle="modal"
+                                        data-bs-target="#modalEditBerita"
                                         data-update-url="{{ route('admin.berita.update', $berita->id) }}"
                                         data-berita-id="{{ $berita->id }}" data-judul="{{ e($berita->judul) }}"
                                         data-penulis="{{ e($berita->penulis) }}"

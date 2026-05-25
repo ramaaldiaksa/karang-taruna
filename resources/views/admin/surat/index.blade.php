@@ -141,27 +141,27 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Judul Surat</th>
-                            <th>Jenis Surat</th>
-                            <th>File</th>
+                            <th class="text-center">Tanggal</th>
+                            <th class="text-center">Judul Surat</th>
+                            <th class="text-center">Jenis Surat</th>
+                            <th class="text-center">File</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($surats as $s)
                             <tr>
-                                <td class="admin-table__muted">
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($s->tanggal_upload)->format('d M Y') }}</td>
-                                <td>{{ $s->judul }}</td>
-                                <td>
+                                <td class="text-center">{{ $s->judul }}</td>
+                                <td class="text-center">
                                     @if ($s->jenis_surat == 'surat masuk')
                                         <span class="admin-status-pill admin-status-pill--success">Masuk</span>
                                     @else
-                                        <span class="admin-status-pill admin-status-pill--warning">Keluar</span>
+                                        <span class="admin-status-pill admin-status-pill--danger">Keluar</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @if ($s->file_surat)
                                         <a href="{{ Storage::url($s->file_surat) }}" target="_blank"
                                             class="admin-table__code">Lihat File</a>

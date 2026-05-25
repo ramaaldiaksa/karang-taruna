@@ -2,6 +2,24 @@
 @section('title', 'Verifikasi Peminjaman')
 
 @section('content')
+
+<div class="row g-4 mb-4">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a3a8a;">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3"
+                        style="width:56px;height:56px;">
+                        <i class="fas fa-handshake fa-2x"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-white-50 fw-semibold">Menunggu Verifikasi</p>
+                        <h4 class="fw-bold mb-0">{{ $peminjamans->total() }} Transaksi</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <x-admin.toolbar :action="route('admin.peminjaman.index')" class="admin-toolbar admin-toolbar--two">
         <x-admin.search-input name="q" placeholder="Cari Nama Peminjam..." :value="request('q')" />
         <div></div>
@@ -18,10 +36,10 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th>Peminjam</th>
-                            <th>Kontak</th>
-                            <th>Jadwal Pinjam</th>
-                            <th>Jadwal Pengembalian</th>
+                            <th class="text-start">Peminjam</th>
+                            <th class="text-start">Kontak</th>
+                            <th class="text-center">Jadwal Pinjam</th>
+                            <th class="text-center">Jadwal<br>Pengembalian</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -29,14 +47,14 @@
                     <tbody>
                         @foreach ($peminjamans as $p)
                             <tr>
-                                <td>
+                                <td class="text-start">
                                     <div>{{ $p->masyarakat->nama ?? '-' }}</div>
                                     <small class="admin-table__muted">Diajukan:
                                         {{ \Carbon\Carbon::parse($p->tanggal_pengajuan)->format('d M Y') }}</small>
                                 </td>
-                                <td class="admin-table__muted">{{ $p->masyarakat->no_telepon ?? '-' }}</td>
-                                <td>{{ \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d M Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d M Y') }}</td>
+                                <td class="text-start admin-table__muted">{{ $p->masyarakat->no_telepon ?? '-' }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($p->tanggal_pinjam)->format('d M Y') }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d M Y') }}</td>
                                 <td class="text-center">
                                     @if ($p->status == 'menunggu')
                                         <span class="admin-status-pill admin-status-pill--warning">Menunggu</span>

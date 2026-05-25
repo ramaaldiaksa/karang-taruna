@@ -4,13 +4,13 @@
 @section('content')
     <div class="row g-4 mb-4">
         <div class="col-md-12">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a3a8a;">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a7a3a;">
                 <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle p-3 me-3">
+                    <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width:56px;height:56px;">
                         <i class="fas fa-history fa-2x"></i>
                     </div>
                     <div>
-                        <p class="mb-1 text-white-50 fw-semibold">Total Peminjaman</p>
+                        <p class="mb-1 text-white-50 fw-semibold">Total Peminjaman Selesai</p>
                         <h3 class="fw-bold mb-0">{{ $pengembalians->total() }} Transaksi</h3>
                     </div>
                 </div>
@@ -34,25 +34,27 @@
                 <table class="table admin-table">
                     <thead>
                         <tr>
-                            <th>No. Pinjaman</th>
-                            <th>Nama Peminjam</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Tanggal Pengembalian</th>
-                            <th>Aksi</th>
+                            <th class="text-center">No. Pinjaman</th>
+                            <th class="text-center">Nama Peminjam</th>
+                            <th class="text-center">Kontak Peminjam</th>
+                            <th class="text-center">Tanggal Pinjam</th>
+                            <th class="text-center">Tanggal<br>Pengembalian</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($pengembalians as $p)
                             <tr>
-                                <td><span class="admin-table__code">#{{ $p->peminjaman->id_peminjaman ?? '-' }}</span></td>
-                                <td>{{ $p->peminjaman->masyarakat->nama ?? '-' }}</td>
-                                <td class="admin-table__muted">
+                                <td class="text-center"><span class="admin-table__code">#{{ $p->peminjaman->id_peminjaman ?? '-' }}</span></td>
+                                <td class="text-center">{{ $p->peminjaman->masyarakat->nama ?? '-' }}</td>
+                                <td class="text-center">{{ $p->peminjaman->masyarakat->no_telepon ?? '-' }}</td>
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($p->peminjaman->tanggal_pinjam ?? $p->peminjaman->tanggal_pengajuan)->format('d M Y') }}
                                 </td>
-                                <td class="admin-table__muted">
+                                <td class="text-center admin-table__muted">
                                     {{ \Carbon\Carbon::parse($p->tanggal_kembali)->format('d M Y') }}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#modalDetail{{ $p->id_pengembalian }}" title="Lihat Detail" style="background: #1a3a8a; border-color: #1a3a8a; color: #fff;">
                                         <i class="fas fa-eye"></i>

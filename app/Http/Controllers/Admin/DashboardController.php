@@ -18,6 +18,7 @@ class DashboardController extends Controller
     {
         $totalPeminjaman = Peminjaman::count();
         $peminjamanMenunggu = Peminjaman::where('status', 'menunggu')->count();
+        $peminjamanBelumKembali = Peminjaman::where('status', 'disetujui')->count();
         $totalInventaris = Inventaris::count();
         $totalKeuangan = Keuangan::count();
         $totalSuratMasuk = Surat::where('jenis_surat', 'surat masuk')->count();
@@ -65,6 +66,7 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact(
             'totalPeminjaman',
             'peminjamanMenunggu',
+            'peminjamanBelumKembali',
             'totalInventaris',
             'totalKeuangan',
             'totalSurat',
