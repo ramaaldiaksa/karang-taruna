@@ -12,48 +12,106 @@
             background-color: #f4f6f9;
         }
 
+        /* Sidebar: dark navy with highlighted active item */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 250px;
+            width: 220px;
             height: 100vh;
-            background-color: #343a40;
-            color: white;
-            padding-top: 1rem;
+            background: linear-gradient(180deg, #07124e 0%, #041033 100%);
+            color: #e6eefc;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             z-index: 1000;
         }
 
-        .sidebar a {
-            color: #adb5bd;
-            text-decoration: none;
-            display: block;
-            padding: 10px 20px;
-            transition: 0.3s;
+        .sidebar .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background-color: #495057;
-            color: white;
-            border-radius: 5px;
+        .sidebar .brand-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #dbeafe;
+            line-height: 1;
+        }
+
+        .sidebar .brand-sub {
+            font-size: 11px;
+            color: rgba(219, 234, 254, 0.6);
+            text-transform: uppercase;
+            letter-spacing: .6px;
         }
 
         .sidebar-nav {
             flex: 1;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(219, 234, 254, 0.75);
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 8px;
+            border-radius: 8px;
+            transition: background .15s, color .15s;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .sidebar .nav-link i {
+            width: 10px;
+            text-align: center;
+            color: inherit;
+        }
+
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(230, 168, 23, 0.10);
+            color: #fff;
+        }
+
+        .sidebar .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 4px;
+            background: #e6a817;
+            border-radius: 4px;
         }
 
         .sidebar-footer {
-            padding: 1rem;
-            border-top: 1px solid #495057;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .sidebar-footer .small-action {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .content {
             padding: 20px;
-            margin-left: 250px;
+            margin-left: 220px;
         }
 
         .card {
@@ -68,8 +126,11 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="px-3 mb-4">
-                <h4 class="fw-bold">Admin Panel</h4>
+            <div class="sidebar-brand">
+                <div>
+                    <div class="brand-title">ADMIN PANEL</div>
+                    <div class="brand-sub">KARANG TARUNA RIMBA KETAPAN</div>
+                </div>
             </div>
             <div class="sidebar-nav">
                 <ul class="nav flex-column">
@@ -88,7 +149,7 @@
                     <li>
                         <a href="{{ route('admin.peminjaman.index') }}"
                             class="nav-link {{ request()->routeIs('admin.peminjaman.*') ? 'active' : '' }}">
-                            <i class="fas fa-handshake me-2"></i> Peminjaman Masuk
+                            <i class="fas fa-handshake me-2"></i> Verifikasi Peminjaman
                         </a>
                     </li>
                     <li>
@@ -98,21 +159,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.pengembalian.riwayat') }}"
-                            class="nav-link {{ request()->routeIs('admin.pengembalian.riwayat') ? 'active' : '' }}">
-                            <i class="fas fa-history me-2"></i> Riwayat Pengembalian
+                        <a href="{{ route('admin.riwayat.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.riwayat.index') ? 'active' : '' }}">
+                            <i class="fas fa-history me-2"></i> Riwayat Peminjaman
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.surat.index') }}"
                             class="nav-link {{ request()->routeIs('admin.surat.*') ? 'active' : '' }}">
-                            <i class="fas fa-envelope me-2"></i> Arsip Surat
+                            <i class="fas fa-envelope me-2"></i> Kelola Arsip Surat
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.keuangan.index') }}"
                             class="nav-link {{ request()->routeIs('admin.keuangan.*') ? 'active' : '' }}">
-                            <i class="fas fa-money-bill-wave me-2"></i> Laporan Keuangan
+                            <i class="fas fa-money-bill-wave me-2"></i> Kelola Laporan Keuangan
                         </a>
                     </li>
                     <li>
@@ -126,8 +187,9 @@
             <div class="sidebar-footer">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-danger w-100"><i class="fas fa-sign-out-alt me-2"></i>
-                        Logout</button>
+                    <button type="submit" class="btn btn-outline-light w-100 small"><i
+                            class="fas fa-sign-out-alt me-2"></i>
+                        Keluar</button>
                 </form>
             </div>
         </div>

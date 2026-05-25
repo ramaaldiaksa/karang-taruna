@@ -37,27 +37,27 @@
         }
 
         .admin-icon-action--view {
-            color: #07569f;
+            color: #ffffff;
+            background: #1a3a8a;
+            border: 1px solid #1a3a8a;
+            box-shadow: none;
+        }
+
+        .admin-icon-action--view:hover {
+            background: #16346f;
+            border-color: #16346f;
         }
     </style>
 @endonce
 
-@if($href)
-    <a
-        href="{{ $href }}"
-        title="{{ $title }}"
-        aria-label="{{ $title }}"
-        {{ $attributes->merge(['class' => 'admin-icon-action admin-icon-action--' . $variant]) }}
-    >
+@if ($href)
+    <a href="{{ $href }}" title="{{ $title }}" aria-label="{{ $title }}"
+        {{ $attributes->merge(['class' => 'admin-icon-action admin-icon-action--' . $variant]) }}>
         <i class="{{ $iconClass }}"></i>
     </a>
 @else
-    <button
-        type="{{ $type }}"
-        title="{{ $title }}"
-        aria-label="{{ $title }}"
-        {{ $attributes->merge(['class' => 'admin-icon-action admin-icon-action--' . $variant]) }}
-    >
+    <button type="{{ $type }}" title="{{ $title }}" aria-label="{{ $title }}"
+        {{ $attributes->merge(['class' => 'admin-icon-action admin-icon-action--' . $variant]) }}>
         <i class="{{ $iconClass }}"></i>
     </button>
 @endif

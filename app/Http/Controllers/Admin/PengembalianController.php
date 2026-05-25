@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Http\Requests\PengembalianRequest;
@@ -37,15 +36,7 @@ class PengembalianController extends Controller
             ->orderBy('tanggal_kembali', 'desc')
             ->paginate(10)
             ->withQueryString();
-        return view('admin.pengembalian.riwayat', compact('pengembalians'));
-    }
-
-    public function create()
-    {
-        $peminjamans = Peminjaman::where('status', 'disetujui')
-            ->with('masyarakat')
-            ->get();
-        return view('admin.pengembalian.create', compact('peminjamans'));
+        return view('admin.riwayat.index', compact('pengembalians'));
     }
 
     public function store(PengembalianRequest $request)

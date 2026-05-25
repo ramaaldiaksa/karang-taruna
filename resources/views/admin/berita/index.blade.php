@@ -215,7 +215,7 @@
         @if ($beritas->count() === 0)
             <div class="admin-table-empty">
                 <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
-                <p class="mb-0">Belum ada data berita.</p>
+                <p class="mb-0">Belum ada berita. Klik tombol <strong>Tambah Berita</strong> untuk memulai.</p>
             </div>
         @else
             <div class="table-responsive">

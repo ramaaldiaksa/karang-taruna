@@ -118,25 +118,6 @@
             letter-spacing: -0.01em;
         }
 
-        .stats-badge {
-            font-size: 0.68rem;
-            font-weight: 600;
-            border-radius: 0.3rem;
-            padding: 0.22rem 0.55rem;
-            min-width: 2.9rem;
-            text-align: center;
-        }
-
-        .stats-badge-success {
-            color: #2d7a38;
-            background: #e6f4ea;
-        }
-
-        .stats-badge-danger {
-            color: #b42318;
-            background: #fdecec;
-        }
-
         .stats-progress {
             height: 6px;
             border-radius: 999px;
@@ -269,7 +250,7 @@
             display: flex;
             align-items: center;
             gap: 0.55rem;
-            min-width: 0;
+            min-width: 0;   
         }
 
         .surat-legend-dot {
@@ -422,7 +403,6 @@
                             <div class="stats-block">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <span class="stats-label mb-0">PEMASUKAN</span>
-                                    <span class="stats-badge stats-badge-success">+{{ $persentasePemasukan }}%</span>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mb-2">
                                     <span class="stats-amount text-success">Rp
@@ -436,7 +416,6 @@
                             <div class="stats-block">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <span class="stats-label mb-0">PENGELUARAN</span>
-                                    <span class="stats-badge stats-badge-danger">{{ $persentasePengeluaran }}%</span>
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mb-2">
                                     <span class="stats-amount text-danger">Rp

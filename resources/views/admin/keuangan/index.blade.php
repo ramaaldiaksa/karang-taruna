@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title', 'Laporan Keuangan')
+@section('title', 'Kelola Laporan Keuangan')
 
 @section('content')
 
     {{-- Modal Tambah Laporan Keuangan --}}
-    <x-admin.modal id="modalTambahKeuangan" title="Tambah Data Keuangan" icon="fas fa-plus-circle">
+    <x-admin.modal id="modalTambahKeuangan" title="Tambah Data Transaksi" icon="fas fa-plus-circle">
         <form action="{{ route('admin.keuangan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body admin-modal__body">
@@ -157,14 +157,14 @@
     <x-admin.toolbar :action="route('admin.keuangan.index')">
         <x-admin.search-input placeholder="Cari Keterangan Transaksi..." />
         <x-admin.filter-select name="jenis_transaksi" placeholder="Semua Transaksi" :options="['pemasukan' => 'Pemasukan', 'pengeluaran' => 'Pengeluaran']" />
-        <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahKeuangan">Tambah Data</x-admin.button>
+        <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahKeuangan">Tambah Transaksi</x-admin.button>
     </x-admin.toolbar>
 
     <x-admin.table-card :paginator="$keuangans">
         @if ($keuangans->count() === 0)
             <div class="admin-table-empty">
                 <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
-                <p class="text-muted mb-0">Belum ada data laporan keuangan. Klik tombol <strong>Tambah Data</strong> untuk
+                <p class="text-muted mb-0">Belum ada data laporan keuangan. Klik tombol <strong>Tambah Transaksi</strong> untuk
                     memulai.</p>
             </div>
         @else

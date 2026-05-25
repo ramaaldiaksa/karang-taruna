@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('title', 'Peminjaman Masuk')
+@section('title', 'Verifikasi Peminjaman')
 
 @section('content')
-    <x-admin.toolbar :action="route('admin.peminjaman.index')">
-        <x-admin.search-input placeholder="Cari Nama atau Kontak Peminjam..." />
+    <x-admin.toolbar :action="route('admin.peminjaman.index')" class="admin-toolbar admin-toolbar--two">
+        <x-admin.search-input name="q" placeholder="Cari Nama Peminjam..." :value="request('q')" />
         <div></div>
     </x-admin.toolbar>
 
@@ -49,9 +49,10 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-icon" data-bs-toggle="modal"
                                         data-bs-target="#modalVerifikasi{{ $p->id_peminjaman }}"
-                                        title="{{ $p->status == 'menunggu' ? 'Verifikasi peminjaman' : 'Detail peminjaman' }}">
+                                        title="{{ $p->status == 'menunggu' ? 'Verifikasi peminjaman' : 'Detail peminjaman' }}"
+                                        style="background: #1a3a8a; border-color: #1a3a8a; color: #fff;">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
@@ -121,7 +122,6 @@
                             <tr>
                                 <th>Nama Barang</th>
                                 <th class="text-center">Jumlah Pinjam</th>
-                                <th class="text-center">Kondisi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,7 +130,6 @@
                                     <td class="fw-semibold">
                                         {{ $detail->inventaris->nama_barang ?? 'Barang tidak ditemukan' }}</td>
                                     <td class="text-center fw-bold text-primary">{{ $detail->jumlah_pinjam }}</td>
-                                    <td class="text-center">{{ $detail->kondisi_pinjam }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Daftar Surat')
+@section('title', 'Kelola Arsip Surat')
 
 @section('content')
 
@@ -126,14 +126,14 @@
     <x-admin.toolbar :action="route('admin.surat.index')">
         <x-admin.search-input placeholder="Cari Judul Surat..." />
         <x-admin.filter-select name="jenis_surat" placeholder="Semua Jenis Surat" :options="['surat masuk' => 'Surat Masuk', 'surat keluar' => 'Surat Keluar']" />
-        <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahSurat">Tambah Arsip</x-admin.button>
+        <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahSurat">Tambah Surat</x-admin.button>
     </x-admin.toolbar>
 
     <x-admin.table-card :paginator="$surats">
         @if ($surats->count() === 0)
             <div class="admin-table-empty">
                 <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
-                <p class="text-muted mb-0">Belum ada arsip surat. Klik tombol <strong>Tambah Arsip</strong> untuk memulai.
+                <p class="text-muted mb-0">Belum ada arsip surat. Klik tombol <strong>Tambah Surat</strong> untuk memulai.
                 </p>
             </div>
         @else

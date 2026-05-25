@@ -346,15 +346,12 @@
                                     <td>
                                         @if ($tersedia === 0)
                                             <span class="admin-status-pill admin-status-pill--danger">0 Unit (Habis)</span>
-                                        @elseif($tersedia <= $total * 0.2)
+                                        @elseif($tersedia <= $total-1)
                                             <span class="admin-status-pill admin-status-pill--warning">{{ $tersedia }}
-                                                Unit (Hampir Habis)</span>
+                                                Unit (Tersedia)</span>
                                         @elseif($tersedia === $total)
                                             <span class="admin-status-pill admin-status-pill--success">{{ $tersedia }}
                                                 Unit (Lengkap)</span>
-                                        @else
-                                            <span class="admin-status-pill admin-status-pill--success">{{ $tersedia }}
-                                                Unit (Tersedia)</span>
                                         @endif
                                     </td>
                                     <td class="text-center">

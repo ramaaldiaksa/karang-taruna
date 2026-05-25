@@ -25,7 +25,7 @@ class PengembalianRequest extends FormRequest
         return [
             'id_peminjaman' => 'required|exists:peminjamans,id_peminjaman',
             'tanggal_kembali' => 'required|date',
-            'keterangan' => 'nullable|string'
+            'keterangan' => 'required|string'
         ];
     }
 }

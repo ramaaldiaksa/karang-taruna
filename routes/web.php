@@ -48,7 +48,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Pengembalian
     Route::get('pengembalian', [AdminPengembalianController::class, 'index'])->name('pengembalian.index');
-    Route::get('pengembalian/riwayat', [AdminPengembalianController::class, 'riwayat'])->name('pengembalian.riwayat');
-    Route::get('pengembalian/buat', [AdminPengembalianController::class, 'create'])->name('pengembalian.create');
+    Route::get('riwayat', [AdminPengembalianController::class, 'riwayat'])->name('riwayat.index');
     Route::post('pengembalian/buat', [AdminPengembalianController::class, 'store'])->name('pengembalian.store');
 });
