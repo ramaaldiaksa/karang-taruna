@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('surats', function (Blueprint $table) {
             $table->id('id_surat');
-            $table->unsignedBigInteger('id_admin');
+            $table->unsignedBigInteger('id_admin')->nullable();
             $table->string('jenis_surat');
             $table->string('judul');
             $table->string('file_surat')->nullable();
             $table->date('tanggal_upload');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_admin')->references('id')->on('users')->nullOnDelete();
         });
     }
 

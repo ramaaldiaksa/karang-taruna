@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_peminjaman')->references('id_peminjaman')->on('peminjamans')->onDelete('cascade');
-            $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris')->onDelete('cascade');
+            $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris')->restrictOnDelete();
         });
     }
 

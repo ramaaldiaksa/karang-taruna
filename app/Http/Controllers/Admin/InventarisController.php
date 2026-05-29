@@ -94,7 +94,8 @@ class InventarisController extends Controller
 
     public function edit(Inventaris $inventari)
     {
-        return view('admin.inventaris.edit', ['inventaris' => $inventari]);
+        // Tidak ada halaman edit terpisah; pengeditan dilakukan via modal di halaman index.
+        return redirect()->route('admin.inventaris.index');
     }
 
     public function update(InventarisRequest $request, Inventaris $inventari)
@@ -115,6 +116,12 @@ class InventarisController extends Controller
 
     public function destroy(Inventaris $inventari)
     {
+        // Cegah penghapusan jika barang masih terkait riwayat peminjaman (jaga integritas data)
+        if ($inventari->detailPeminjaman()->exists()) {
+            return redirect()->route('admin.inventaris.index')
+                ->with('error', 'Barang tidak dapat dihapus karena memiliki riwayat peminjaman.');
+        }
+
         $inventari->delete();
         return redirect()->route('admin.inventaris.index')
             ->with('success', 'Data inventaris berhasil dihapus.');

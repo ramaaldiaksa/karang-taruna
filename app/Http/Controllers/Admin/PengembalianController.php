@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Http\Requests\PengembalianRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PengembalianController extends Controller
 {
@@ -41,20 +43,35 @@ class PengembalianController extends Controller
 
     public function store(PengembalianRequest $request)
     {
-        $peminjaman = Peminjaman::findOrFail($request->id_peminjaman);
+        $peminjaman = Peminjaman::with('detail.inventaris')->findOrFail($request->id_peminjaman);
 
-        Pengembalian::create([
-            'id_peminjaman' => $peminjaman->id_peminjaman,
-            'id_admin' => auth()->id(),
-            'tanggal_kembali' => $request->tanggal_kembali,
-            'keterangan' => $request->keterangan
-        ]);
+        // Cegah pengembalian ganda: hanya peminjaman berstatus 'disetujui' yang bisa dikembalikan
+        if ($peminjaman->status !== 'disetujui') {
+            return redirect()->route('admin.pengembalian.index')
+                ->with('error', 'Peminjaman ini sudah dikembalikan atau tidak dalam status dipinjam.');
+        }
 
-        $peminjaman->update(['status' => 'dikembalikan']);
+        try {
+            DB::transaction(function () use ($request, $peminjaman) {
+                Pengembalian::create([
+                    'id_peminjaman' => $peminjaman->id_peminjaman,
+                    'id_admin' => Auth::id(),
+                    'tanggal_kembali' => $request->tanggal_kembali,
+                    'keterangan' => $request->keterangan
+                ]);
 
-        // Kembalikan stok
-        foreach ($peminjaman->detail as $dt) {
-            $dt->inventaris->increment('jumlah_tersedia', $dt->jumlah_pinjam);
+                $peminjaman->update(['status' => 'dikembalikan']);
+
+                // Kembalikan stok
+                foreach ($peminjaman->detail as $dt) {
+                    if ($dt->inventaris) {
+                        $dt->inventaris->increment('jumlah_tersedia', $dt->jumlah_pinjam);
+                    }
+                }
+            });
+        } catch (\Exception $e) {
+            return redirect()->route('admin.pengembalian.index')
+                ->with('error', 'Gagal mencatat pengembalian: ' . $e->getMessage());
         }
 
         return redirect()->route('admin.pengembalian.index')->with('success', 'Data pengembalian berhasil dicatat dan stok inventaris dikembalikan.');

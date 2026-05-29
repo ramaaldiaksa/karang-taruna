@@ -29,11 +29,6 @@ class SuratController extends Controller
         return view('admin.surat.index', compact('surats', 'totalSuratMasuk', 'totalSuratKeluar'));
     }
 
-    public function create()
-    {
-        return view('admin.surat.create');
-    }
-
     public function store(SuratRequest $request)
     {
         $data = $request->validated();

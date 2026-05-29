@@ -18,7 +18,7 @@
 
                     <!-- Step 1 -->
                     <div class="text-center position-relative z-index-2"
-                        style="background: white; padding: 0 10px; z-index: 2;" id="indicator-step-1">
+                        style="background: #f8f9fa; padding: 0 10px; z-index: 2;" id="indicator-step-1">
                         <div class="step-circle rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-2 shadow-sm"
                             style="width: 32px; height: 32px; font-weight: bold; font-size: 0.9rem; transition: all 0.3s;">
                             1
@@ -29,7 +29,7 @@
 
                     <!-- Step 2 -->
                     <div class="text-center position-relative z-index-2"
-                        style="background: white; padding: 0 10px; z-index: 2;" id="indicator-step-2">
+                        style="background: #f8f9fa; padding: 0 10px; z-index: 2;" id="indicator-step-2">
                         <div class="step-circle rounded-circle bg-light-gray text-muted border d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width: 32px; height: 32px; font-weight: bold; font-size: 0.9rem; transition: all 0.3s;">
                             2
@@ -40,7 +40,7 @@
 
                     <!-- Step 3 -->
                     <div class="text-center position-relative z-index-2"
-                        style="background: white; padding: 0 10px; z-index: 2;" id="indicator-step-3">
+                        style="background: #f8f9fa; padding: 0 10px; z-index: 2;" id="indicator-step-3">
                         <div class="step-circle rounded-circle bg-light-gray text-muted border d-flex align-items-center justify-content-center mx-auto mb-2"
                             style="width: 32px; height: 32px; font-weight: bold; font-size: 0.9rem; transition: all 0.3s;">
                             3

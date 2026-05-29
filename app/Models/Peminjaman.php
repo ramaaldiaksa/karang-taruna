@@ -13,4 +13,5 @@ class Peminjaman extends Model
     public function masyarakat() { return $this->belongsTo(Masyarakat::class, 'id_masyarakat', 'id_masyarakat'); }
     public function admin() { return $this->belongsTo(User::class, 'id_admin', 'id'); }
     public function detail() { return $this->hasMany(DetailPeminjaman::class, 'id_peminjaman', 'id_peminjaman'); }
+    public function pengembalian() { return $this->hasOne(Pengembalian::class, 'id_peminjaman', 'id_peminjaman'); }
 }

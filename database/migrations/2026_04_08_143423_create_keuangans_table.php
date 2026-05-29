@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('keuangans', function (Blueprint $table) {
             $table->id('id_keuangan');
-            $table->unsignedBigInteger('id_admin');
+            $table->unsignedBigInteger('id_admin')->nullable();
             $table->decimal('jumlah', 15, 2);
             $table->enum('jenis_transaksi', ['pemasukan', 'pengeluaran']);
             $table->date('tanggal');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('bukti_transaksi')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_admin')->references('id')->on('users')->nullOnDelete();
         });
     }
 

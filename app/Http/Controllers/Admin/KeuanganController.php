@@ -29,11 +29,6 @@ class KeuanganController extends Controller
         return view('admin.keuangan.index', compact('keuangans', 'totalPemasukan', 'totalPengeluaran', 'saldoKas'));
     }
 
-    public function create()
-    {
-        return view('admin.keuangan.create');
-    }
-
     public function store(KeuanganRequest $request)
     {
         $data = $request->validated();

@@ -37,10 +37,11 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('inventaris', AdminInventarisController::class);
-    Route::resource('surat', AdminSuratController::class);
-    Route::resource('keuangan', AdminKeuanganController::class);
-    Route::resource('berita', AdminBeritaController::class)->except(['create', 'edit']);
+    // CRUD berbasis modal di halaman index (tanpa halaman create/edit/show terpisah)
+    Route::resource('inventaris', AdminInventarisController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('surat', AdminSuratController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('keuangan', AdminKeuanganController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('berita', AdminBeritaController::class)->only(['index', 'store', 'update', 'destroy']);
 
     // Peminjaman
     Route::get('peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');

@@ -9,4 +9,9 @@ class Masyarakat extends Model
     protected $table = 'masyarakats';
     protected $primaryKey = 'id_masyarakat';
     protected $fillable = ['nama', 'email', 'no_telepon', 'alamat'];
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'id_masyarakat', 'id_masyarakat');
+    }
 }
