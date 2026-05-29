@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-white sticky-top">
     <div class="container-fluid px-4 px-md-5">
         <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="{{ route('home') }}">
-            <img src="{{ asset('image/Logo_Karang_Taruna_New.jpg') }}" alt="Logo Karang Taruna" height="38"
+            <img src="{{ asset('image/Logo no BG.png') }}" alt="Logo Karang Taruna" height="38"
                 class="me-2">
             <span>Karang Taruna Rimba Ketapan</span>
         </a>

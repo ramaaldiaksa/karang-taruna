@@ -5,19 +5,10 @@
         <div class="container pb-5">
             <h1 class="display-1 fw-bold mb-4" style="line-height: 1.2;">Sistem Informasi<br>Karang Taruna Rimba Ketapan</h1>
             <p class="lead mb-5" style="font-size: 1.15rem; color: rgba(255,255,255,0.9);">Platform digital untuk mengelola
-                data inventaris, kegiatan, dan administrasi Karang Taruna secara efektif dan terintegrasi.</p>
+                data inventaris, kegiatan,<br>dan administrasi Karang Taruna secara efektif dan terintegrasi.</p>
             <a href="{{ route('public.peminjaman.create') }}"
                 class="btn btn-light btn-lg text-primary fw-semibold px-4 rounded-3 shadow-sm" style="font-size: 1rem;">Ajukan
-                Peminjaman Inventaris</a>
-            <a href="{{ route('public.inventaris') }}"
-                class="btn btn-light btn-lg text-primary fw-semibold px-4 rounded-3 shadow-sm ms-3"
-                style="font-size: 1rem;">Lihat Inventaris</a>
-            <a href="{{ route('public.keuangan') }}"
-                class="btn btn-light btn-lg text-primary fw-semibold px-4 rounded-3 shadow-sm ms-3"
-                style="font-size: 1rem;">Lihat Laporan Keuangan</a>
-            <a href="{{ route('about') }}"
-                class="btn btn-outline-light btn-lg text-white fw-semibold px-4 rounded-3 shadow-sm ms-3"
-                style="font-size: 1rem;">Tentang Kami</a>
+                Peminjaman</a>
         </div>
     </div>
 

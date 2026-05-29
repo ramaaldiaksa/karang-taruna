@@ -4,25 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Karang Taruna</title>
+    <link rel="icon" type="image/png" href="{{ asset('image/Logo no BG.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        .login-card { width: 100%; max-width: 400px; border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .login-header { background: #343a40; color: white; padding: 2rem; border-radius: 15px 15px 0 0; text-align: center; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, rgba(7, 18, 78, 0.04) 0%, rgba(4, 16, 51, 0.04) 100%), #f4f6f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 1.5rem;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(4, 16, 51, 0.08);
+            background: #ffffff;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease;
+        }
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 22px 45px rgba(4, 16, 51, 0.12);
+        }
+        .login-header {
+            background: linear-gradient(180deg, #07124e 0%, #041033 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #e6a817;
+        }
+        .login-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at top right, rgba(230, 168, 23, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .brand-subtitle {
+            font-size: 11px;
+            color: rgba(219, 234, 254, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        .icon-wrapper {
+            background: rgba(230, 168, 23, 0.12);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(230, 168, 23, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .login-card:hover .icon-wrapper {
+            transform: scale(1.05) rotate(5deg);
+        }
+        .icon-wrapper i {
+            color: #e6a817;
+        }
+        .form-label-custom {
+            font-size: 0.85rem;
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .input-group-custom {
+            border: 1.5px solid #dee2e6;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            background: #ffffff;
+        }
+        .input-group-custom:focus-within {
+            border-color: #07124e;
+            box-shadow: 0 0 0 3.5px rgba(7, 18, 78, 0.085);
+        }
+        .input-group-custom .input-group-text {
+            background: transparent;
+            border: none;
+            color: #6c757d;
+            padding-left: 1rem;
+            padding-right: 0.75rem;
+        }
+        .input-group-custom .form-control {
+            border: none;
+            padding: 0.75rem 1rem 0.75rem 0;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+        .input-group-custom .form-control:focus {
+            box-shadow: none;
+            outline: none;
+            background: transparent;
+        }
+        .btn-admin {
+            background: linear-gradient(135deg, #07124e 0%, #041033 100%);
+            border: none;
+            color: white;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(7, 18, 78, 0.15);
+        }
+        .btn-admin:hover {
+            background: linear-gradient(135deg, #050d38 0%, #020921 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(7, 18, 78, 0.25);
+            color: #ffffff;
+        }
+        .btn-admin:active {
+            transform: translateY(1px);
+        }
+        .back-link {
+            color: #6c757d;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #07124e;
+            transform: translateX(-2px);
+        }
     </style>
 </head>
 <body>
 
     <div class="card login-card">
         <div class="login-header">
-            <i class="fas fa-user-shield fa-3x mb-3 text-warning"></i>
+            <div class="icon-wrapper">
+                <i class="fas fa-user-shield fa-2x"></i>
+            </div>
             <h4 class="mb-0 fw-bold">Login Admin</h4>
+            <div class="brand-subtitle">Karang Taruna Rimba Ketapan</div>
         </div>
-        <div class="card-body p-4">
+        <div class="card-body p-4 p-sm-5">
             @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0 text-start">
+                <div class="alert alert-danger border-0 shadow-sm rounded-3">
+                    <ul class="mb-0 text-start small ps-3">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -32,25 +172,27 @@
 
             <form action="{{ route('login') }}" method="POST">
                 @csrf
-                <div class="mb-3">
-                    <label class="form-label text-muted fw-bold">Username</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-user text-muted"></i></span>
-                        <input type="text" name="username" class="form-control border-start-0" required autofocus>
+                <div class="mb-4">
+                    <label class="form-label-custom">Username</label>
+                    <div class="input-group input-group-custom">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label class="form-label text-muted fw-bold">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock text-muted"></i></span>
-                        <input type="password" name="password" class="form-control border-start-0" required>
+                    <label class="form-label-custom">Password</label>
+                    <div class="input-group input-group-custom">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
                     </div>
                 </div>
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary shadow-sm py-2 fw-bold">Masuk</button>
+                <div class="d-grid mb-4">
+                    <button type="submit" class="btn btn-admin">Masuk</button>
                 </div>
                 <div class="text-center">
-                    <a href="{{ route('home') }}" class="text-decoration-none text-muted small"><i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda</a>
+                    <a href="{{ route('home') }}" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                    </a>
                 </div>
             </form>
         </div>
