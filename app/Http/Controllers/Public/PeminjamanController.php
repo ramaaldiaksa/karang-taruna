@@ -10,17 +10,32 @@ use App\Models\Masyarakat;
 use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
 use App\Http\Requests\PeminjamanRequest;
+use Illuminate\Support\Str;
 
 class PeminjamanController extends Controller
 {
     public function create()
     {
         $inventaris = Inventaris::where('jumlah_tersedia', '>', 0)->get();
-        return view('public.peminjaman.create', compact('inventaris'));
+        $idempotencyToken = Str::uuid()->toString();
+        session()->put('peminjaman_token', $idempotencyToken);
+
+        return view('public.peminjaman.create', compact('inventaris', 'idempotencyToken'));
     }
 
     public function store(PeminjamanRequest $request)
     {
+        // Validasi Idempotency Token
+        $token = $request->input('idempotency_token');
+        $sessionToken = session()->get('peminjaman_token');
+
+        if (!$token || $token !== $sessionToken) {
+            return redirect()->route('home')->with('warning', 'Transaksi duplikat telah diblokir. Pengajuan Anda sedang diproses.');
+        }
+
+        // Hapus token secara instan dari session sebelum menulis ke DB
+        session()->forget('peminjaman_token');
+
         // 1. Simpan/Update Masyarakat (Berdasarkan email atau telepon)
         $masyarakat = Masyarakat::firstOrCreate(
             ['no_telepon' => $request->no_telepon],

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Karang Taruna</title>
+    <title>Lupa Password Admin - Karang Taruna</title>
     <link rel="icon" type="image/png" href="{{ asset('image/Logo no BG.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -147,17 +147,6 @@
             color: #07124e;
             transform: translateX(-2px);
         }
-        .forgot-link {
-            color: #6c757d;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .forgot-link:hover {
-            color: #07124e;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -165,15 +154,19 @@
     <div class="card login-card">
         <div class="login-header">
             <div class="icon-wrapper">
-                <i class="fas fa-user-shield fa-2x"></i>
+                <i class="fas fa-key fa-2x"></i>
             </div>
-            <h4 class="mb-0 fw-bold">Login Admin</h4>
+            <h4 class="mb-0 fw-bold">Lupa Password</h4>
             <div class="brand-subtitle">Karang Taruna Rimba Ketapan</div>
         </div>
         <div class="card-body p-4 p-sm-5">
-            @if(session('success'))
+            <p class="text-muted text-center small mb-4">
+                Masukkan alamat email yang terdaftar pada akun administrator Anda. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi.
+            </p>
+
+            @if(session('status'))
                 <div class="alert alert-success border-0 shadow-sm rounded-3 small">
-                    <i class="fas fa-check-circle me-1"></i> {{ session('success') }}
+                    <i class="fas fa-check-circle me-1"></i> {{ session('status') }}
                 </div>
             @endif
 
@@ -187,36 +180,40 @@
                 </div>
             @endif
 
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('password.email') }}" method="POST" id="forgotPasswordForm">
                 @csrf
                 <div class="mb-4">
-                    <label class="form-label-custom">Username</label>
+                    <label class="form-label-custom">Alamat Email</label>
                     <div class="input-group input-group-custom">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <label class="form-label-custom mb-0">Password</label>
-                        <a href="{{ route('password.request') }}" class="forgot-link">Lupa Password?</a>
-                    </div>
-                    <div class="input-group input-group-custom">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="admin@karangtaruna.com" value="{{ old('email') }}" required autofocus>
                     </div>
                 </div>
                 <div class="d-grid mb-4">
-                    <button type="submit" class="btn btn-admin">Masuk</button>
+                    <button type="submit" class="btn btn-admin" id="btnSubmit">
+                        <span id="btnText">Kirim Link Reset</span>
+                        <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
                 </div>
                 <div class="text-center">
-                    <a href="{{ route('home') }}" class="back-link">
-                        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                    <a href="{{ route('login') }}" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Login
                     </a>
                 </div>
             </form>
         </div>
     </div>
 
+    <script>
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function() {
+            var btn = document.getElementById('btnSubmit');
+            var text = document.getElementById('btnText');
+            var spinner = document.getElementById('btnSpinner');
+            
+            btn.disabled = true;
+            text.textContent = 'Mengirim...';
+            spinner.classList.remove('d-none');
+        });
+    </script>
 </body>
 </html>

@@ -126,7 +126,7 @@
         }
 
         .hero-section-home {
-            background: linear-gradient(rgba(0, 32, 96, 0.7), rgba(0, 32, 96, 0.7)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920') no-repeat center center;
+            background: linear-gradient(rgba(0, 32, 96, 0.7), rgba(0, 32, 96, 0.7)), url('{{ asset('image/Hero bg.jpeg') }}') no-repeat center center;
             background-size: cover;
             color: white;
             padding: 8rem 0;

@@ -64,6 +64,7 @@
 
         <form action="{{ route('public.peminjaman.store') }}" method="POST" id="form-peminjaman">
             @csrf
+            <input type="hidden" name="idempotency_token" value="{{ $idempotencyToken }}">
             <div class="row g-4">
 
                 <!-- Main Content Form -->
@@ -292,7 +293,14 @@
             if (confirmSubmitBtn && form) {
                 confirmSubmitBtn.addEventListener('click', function() {
                     formConfirmed = true;
-                    if (confirmModal) confirmModal.style.display = 'none';
+                    
+                    // Disable tombol modal konfirmasi
+                    confirmSubmitBtn.disabled = true;
+                    if (confirmCancelBtn) confirmCancelBtn.disabled = true;
+                    
+                    // Ubah teks dan tampilkan spinner
+                    confirmSubmitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Mengirim...';
+                    
                     form.submit();
                 });
             }

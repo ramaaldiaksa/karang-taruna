@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Karang Taruna</title>
+    <title>Atur Ulang Password Admin - Karang Taruna</title>
     <link rel="icon" type="image/png" href="{{ asset('image/Logo no BG.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -133,31 +133,6 @@
         .btn-admin:active {
             transform: translateY(1px);
         }
-        .back-link {
-            color: #6c757d;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            color: #07124e;
-            transform: translateX(-2px);
-        }
-        .forgot-link {
-            color: #6c757d;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .forgot-link:hover {
-            color: #07124e;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -165,17 +140,15 @@
     <div class="card login-card">
         <div class="login-header">
             <div class="icon-wrapper">
-                <i class="fas fa-user-shield fa-2x"></i>
+                <i class="fas fa-user-lock fa-2x"></i>
             </div>
-            <h4 class="mb-0 fw-bold">Login Admin</h4>
+            <h4 class="mb-0 fw-bold">Reset Password</h4>
             <div class="brand-subtitle">Karang Taruna Rimba Ketapan</div>
         </div>
         <div class="card-body p-4 p-sm-5">
-            @if(session('success'))
-                <div class="alert alert-success border-0 shadow-sm rounded-3 small">
-                    <i class="fas fa-check-circle me-1"></i> {{ session('success') }}
-                </div>
-            @endif
+            <p class="text-muted text-center small mb-4">
+                Silakan isi email Anda dan ketikkan kata sandi baru untuk akun administrator Anda.
+            </p>
 
             @if($errors->any())
                 <div class="alert alert-danger border-0 shadow-sm rounded-3">
@@ -187,36 +160,74 @@
                 </div>
             @endif
 
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST" id="resetPasswordForm">
                 @csrf
-                <div class="mb-4">
-                    <label class="form-label-custom">Username</label>
-                    <div class="input-group input-group-custom">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
+                <input type="hidden" name="token" value="{{ $token }}">
+
+                <div class="mb-3">
+                    <label class="form-label-custom">Alamat Email</label>
+                    <div class="input-group input-group-custom bg-light">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" name="email" class="form-control text-muted" value="{{ old('email', $email) }}" required readonly>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <label class="form-label-custom mb-0">Password</label>
-                        <a href="{{ route('password.request') }}" class="forgot-link">Lupa Password?</a>
-                    </div>
+
+                <div class="mb-3">
+                    <label class="form-label-custom">Password Baru</label>
                     <div class="input-group input-group-custom">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Minimal 8 karakter" required autofocus>
                     </div>
                 </div>
-                <div class="d-grid mb-4">
-                    <button type="submit" class="btn btn-admin">Masuk</button>
+
+                <div class="mb-4">
+                    <label class="form-label-custom">Konfirmasi Password Baru</label>
+                    <div class="input-group input-group-custom">
+                        <span class="input-group-text"><i class="fas fa-check-double"></i></span>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Ulangi password baru" required>
+                    </div>
+                    <div id="password-match-feedback" class="small mt-1 d-none"></div>
                 </div>
-                <div class="text-center">
-                    <a href="{{ route('home') }}" class="back-link">
-                        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-                    </a>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-admin" id="btnSubmit">Simpan Password Baru</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script>
+        var password = document.getElementById('password');
+        var confirmPassword = document.getElementById('password_confirmation');
+        var feedback = document.getElementById('password-match-feedback');
+        var submitBtn = document.getElementById('btnSubmit');
+
+        function validatePassword() {
+            if (password.value === '' || confirmPassword.value === '') {
+                feedback.classList.add('d-none');
+                submitBtn.disabled = false;
+                return;
+            }
+
+            feedback.classList.remove('d-none');
+            if (password.value === confirmPassword.value) {
+                feedback.innerHTML = '<i class="fas fa-check me-1"></i> Password cocok';
+                feedback.className = 'small mt-1 text-success fw-semibold';
+                submitBtn.disabled = false;
+            } else {
+                feedback.innerHTML = '<i class="fas fa-times me-1"></i> Password tidak cocok';
+                feedback.className = 'small mt-1 text-danger fw-semibold';
+                submitBtn.disabled = true;
+            }
+        }
+
+        password.addEventListener('keyup', validatePassword);
+        confirmPassword.addEventListener('keyup', validatePassword);
+        
+        document.getElementById('resetPasswordForm').addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Menyimpan...';
+        });
+    </script>
 </body>
 </html>

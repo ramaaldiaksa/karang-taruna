@@ -33,6 +33,12 @@ Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('logi
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Admin Forgot & Reset Password Routes
+Route::get('/admin/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/admin/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/admin/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/admin/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 // Admin Protected Routes
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
