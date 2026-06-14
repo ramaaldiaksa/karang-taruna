@@ -3,11 +3,11 @@
 @section('title', 'Kelola Berita')
 
 @section('content')
-    <x-admin.toolbar :action="route('admin.berita.index')" class="admin-toolbar admin-toolbar--two">
-        <x-admin.search-input placeholder="Cari Judul atau Penulis..." />
-        <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahBerita" icon="fas fa-plus-circle">Tambah
-            Berita</x-admin.button>
-    </x-admin.toolbar>
+        <x-admin.toolbar :action="route('admin.berita.index')" class="admin-toolbar admin-toolbar--two">
+            <x-admin.search-input placeholder="Cari Judul atau Penulis..." />
+            <x-admin.button data-bs-toggle="modal" data-bs-target="#modalTambahBerita" icon="fas fa-plus-circle">Tambah
+                Berita</x-admin.button>
+        </x-admin.toolbar>
 
     <x-admin.modal id="modalTambahBerita" title="Tambah Berita Baru" icon="fas fa-plus-circle" size="lg">
         <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">

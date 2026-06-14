@@ -4,21 +4,21 @@
 @section('content')
 
 <div class="row g-4 mb-4">
-        <div class="col-md-12">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a3a8a;">
-                <div class="card-body p-4 d-flex align-items-center">
-                    <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3"
-                        style="width:56px;height:56px;">
-                        <i class="fas fa-handshake fa-2x"></i>
-                    </div>
-                    <div>
-                        <p class="mb-1 text-white-50 fw-semibold">Menunggu Verifikasi</p>
-                        <h4 class="fw-bold mb-0">{{ $peminjamans->total() }} Transaksi</h4>
-                    </div>
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm rounded-4 h-100 text-white" style="background:#1a3a8a;">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="bg-white bg-opacity-25 rounded-circle d-inline-flex align-items-center justify-content-center me-3"
+                    style="width:56px;height:56px;">
+                    <i class="fas fa-handshake fa-2x"></i>
+                </div>
+                <div>
+                    <p class="mb-1 text-white-50 fw-semibold">Menunggu Verifikasi</p>
+                    <h4 class="fw-bold mb-0">{{ $peminjamans->total() }} Transaksi</h4>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <x-admin.toolbar :action="route('admin.peminjaman.index')" class="admin-toolbar admin-toolbar--two">
         <x-admin.search-input name="q" placeholder="Cari Nama Peminjam..." :value="request('q')" />
